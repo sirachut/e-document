@@ -32,7 +32,7 @@
             <td class="td-grid">doc_id</td>
             <td class="td-grid">doc_priority</td>
             <td class="td-grid sub_str">ขอส่งคำสั่งคณะเทคโนโลยีสารสนเทศและการสื่อสาร ที่ ๐๕๐/๒๕๖๐ เรื่องแต่งตั้งอาจารย์ที่ปรึกษานิสิต ประจำปี ๒๕๖๐ เพื่อบัน</td>
-            <td class="td-grid">doc_</td>
+            <td class="td-grid">doc_number</td>
             <td><button type="button" class="btn btn-warning" style="color:white;">เพิ่มเติม</button></td>
           </tr>
         </tbody>
