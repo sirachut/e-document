@@ -70,13 +70,13 @@ $barcode = Barcode::findOrFail(1);
         $from=$barcode->NUM_FROM;
         
         while($i<=$c_row){
-          PDF::write1DBarcode($from, 'C128A', $col1, $row, '', 18, 0.4, $style, 'N');
+          PDF::write1DBarcode($from, 'C128', $col1, $row, '', 18, 0.4, $style, 'N');
           $from++;
-          PDF::write1DBarcode($from, 'C128A', $col2, $row, '', 18, 0.4, $style, 'N');
+          PDF::write1DBarcode('000000'.$from, 'C128', $col2, $row, '', 18, 0.4, $style, 'N');
           $from++;
-          PDF::write1DBarcode($from, 'C128A', $col3, $row, '', 18, 0.4, $style, 'N');
+          PDF::write1DBarcode($from, 'C128', $col3, $row, '', 18, 0.4, $style, 'N');
           $from++;
-          PDF::write1DBarcode($from, 'C128A', $col4, $row, '', 18, 0.4, $style, 'N');  
+          PDF::write1DBarcode($from, 'C128', $col4, $row, '', 18, 0.4, $style, 'N');  
           $from++;
           $row=$row+18;
           $i++;
