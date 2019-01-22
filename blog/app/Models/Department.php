@@ -7,16 +7,17 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 
-class Barcode extends Model
+class Department extends Model
 {
+//    use SoftDeletes;
 
-    protected $primaryKey = 'BARCODE_ID';
-    public $incrementing = true;
+    protected $primaryKey = 'DEPARTMENT_ID';
+    public $incrementing = false;
     public $timestamps = false;
     
-    protected $table = 'barcode';
+    protected $table = 'mas_department';
     protected $fillable = [
-       'BARCODE_ID', 'NUM_FROM', 'NUM_TO', 'RECORD_STATUS','CREATE_DATE','PRINT_STATUS',
+       'DEPARTMENT_ID', 'DEPARTMENT_NAME', 'RECORD_STATUS', 'CREATE_DATE','CREATE_USER','LAST_DATE','LAST_USER',
     ];
 
 

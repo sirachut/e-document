@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Document;
-
+use App\Models\Document_Item;
+use App\Models\Department;
 
 class DocumentController extends Controller
 {
@@ -19,8 +20,12 @@ class DocumentController extends Controller
             $Document = Document::where('RECORD_STATUS', 'N')
                      ->orderBy('DATE_IN', 'desc')
                     ->get();
+              $Department = Department::where('RECORD_STATUS', 'N')
+                    ->get();
+              $Data['Document']= $Document;
+              $Data['Department']= $Department;
         return View('list')
-            ->with('Document', $Document);
+            ->with('Data', $Data);
     }
 
     public function create()
@@ -44,7 +49,15 @@ class DocumentController extends Controller
 		$document->DOCUMENT_ST_NUMBER = $request->input('DOCUMENT_ST_NUMBER');
 		$document->DOCUMENT_PRIORITY = $request->input('DOCUMENT_PRIORITY');
 		$document->save();
- 
+                $last_insert_id =   $document->DOCUMENT_ID;
+//                dd($last_insert_id);
+                $document_Item = new Document_Item;
+                $document_Item->DOCUMENT_ID = $last_insert_id;
+                $document_Item->DATE_IN ='2019-01-18 16:33:45';
+		$document_Item->DEPARTMENT_ID = 3;
+		$document_Item->ROUTE_NO =1;
+                $document_Item->STATUS_ID =2;
+		$document_Item->save();
 		// redirect
 		return redirect('list')->with('message', 'เพิ่มเอกสารสำเร็จ!');
     }
@@ -91,7 +104,7 @@ class DocumentController extends Controller
 		$Document->RECORD_STATUS = 'D';
 		$Document->save();
  
-		// redirect
+//		// redirect
 		return redirect('document')->with('message', 'ลบข้อมูลสำเร็จ!');
     }
 }

@@ -19,6 +19,7 @@ Route::get('/list', ['as'=>'list','uses'=>'DocumentController@index']);
 
 Route::resource('user', 'UserController');
 Route::resource('document', 'DocumentController');
+Route::resource('barcode', 'BarcodeController');
 
 Route::get('/pdf', ['as'=>'PdfDemo','uses'=>'PdfDemoController@index']);
 Route::get('/sample-pdf', ['as'=>'SamplePDF','uses'=>'PdfDemoController@samplePDF']);
