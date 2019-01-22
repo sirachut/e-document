@@ -109,7 +109,7 @@ $barcode = Barcode::findOrFail($id);
 
 
 //Close and output PDF document
-PDF::Output('example_027.pdf', 'I');
+PDF::Output('Barcode'.$barcode->NUM_FROM.'_'.$barcode->NUM_TO.'.pdf', 'I');
 
 $Barcode = Barcode::findOrFail($id);
 		$Barcode->PRINT_STATUS = 'T';
