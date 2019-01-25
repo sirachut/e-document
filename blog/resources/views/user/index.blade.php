@@ -12,6 +12,14 @@
     <title> {{ config('app.name', 'Laravel') }}</title>
 	<!-- Bootstrap Core CSS -->
 	<link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        <!--<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css" rel="stylesheet">-->
+        <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+        
+         <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+         <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+         <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+        
+
 	</head>
 	<body>
 		 <div class="container">
@@ -30,13 +38,13 @@
 				<div class="alert alert-success">{{ Session::get('message') }}</div>
 			@endif
 			<div class="table-responsive">
-			<table class="table table-striped table-bordered">
+		<table id="example" class="table table-striped table-bordered" style="width:100%">
 				<thead>
 					<tr>
 						<td>USERNAME</td>
 						<td>DISPLAY_NAME</td>
 						<td>TELEPHONE</td>
-						
+						<td>action</td>
 					</tr>
 				</thead>
 				<tbody>
@@ -48,17 +56,12 @@
 			
 						<!-- we will also add show, edit, and delete buttons -->
 						<td>
-			
-							<!-- delete the nerd (uses the destroy method DESTROY /blogs/{id} -->
-							<!-- we will add this later since its a little more complicated than the other two buttons -->
 							<form class="form-horizontal" method="POST" action="{{ URL('user/'.$value->USER_ID) }}">
 							{{ csrf_field() }}
 							{{ method_field('DELETE') }}
-							
-							<!-- show the nerd (uses the show method found at GET /users/{id} -->
+						
 							<a class="btn btn-xs btn-success" href="{{ URL::to('user/' . $value->USER_ID) }}">Show</a>
 			
-							<!-- edit this nerd (uses the edit method found at GET /users/{id}/edit -->
 							<a class="btn btn-xs btn-info" href="{{ URL::to('user/' . $value->USER_ID . '/edit') }}">Edit</a>
 							
 							<button type="submit" class="btn btn-xs btn-danger">Delete</button>
@@ -72,5 +75,10 @@
 			</table>
 			</div>
 	</div>
+            <script>
+            $(document).ready(function() {
+    $('#example').DataTable();
+} );
+</script>
 </body>
 </html>

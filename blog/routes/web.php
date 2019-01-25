@@ -26,3 +26,10 @@ Route::get('/sample-pdf', ['as'=>'SamplePDF','uses'=>'PdfDemoController@samplePD
 Route::get('/save-pdf', ['as'=>'SavePDF','uses'=>'PdfDemoController@savePDF']);
 Route::get('/download-pdf', ['as'=>'DownloadPDF','uses'=>'PdfDemoController@downloadPDF']);
 Route::get('/html-to-pdf', ['as'=>'HtmlToPDF','uses'=>'PdfDemoController@htmlToPDF']);
+
+Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::post('login', 'Auth\LoginController@Login');
+//Route::post('logout', 'Auth\LoginController@logout')->name('logout');
+//Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

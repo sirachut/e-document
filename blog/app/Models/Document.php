@@ -6,13 +6,14 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Model;
+//use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Document extends Model
 {
 //    use SoftDeletes;
 
     protected $primaryKey = 'DOCUMENT_ID';
-    public $incrementing = true;
+    public $incrementing = false;
     public $timestamps = false;
     
     protected $table = 'document';

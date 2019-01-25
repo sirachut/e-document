@@ -68,71 +68,45 @@
                                 @endif
                             </div>
                         </div>
-<!--                        <div class="form-group{{ $errors->has('DOCUMENT_ST_NUMBER') ? ' has-error' : '' }}">
-                            <label for="content" class="col-md-4 control-label">ส่งต่อ  *</label>
 
-                            <div class="col-md-6">
-                                <select name="DEPARTMENT_ID">
-                                @foreach ($Data['Department'] as $key => $value)
-                                <option value="{{ $value->DEPARTMENT_ID }}">{{ $value->DEPARTMENT_NAME }}</option>
-			
-                                
-				@endforeach
-                              </select>
-                      
-                            </div>
-                        </div>-->
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
                                     สร้าง
                                 </button>
-                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">ปิด</button>
                             </div>
                         </div>
                     </form>
       </div>
-<!--      <div class="modal-footer">
+      <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary">Save changes</button>
-      </div>-->
+      </div>
     </div>
   </div>
 </div>
 
 <div class="table-responsive-lg table-hover container " style="margin-top: 70px">
+  <form>
+				
+							
+   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+เพิ่มรายการ
+</button>
+</form>
  
-    <table class="table table-borderless">
+    <table class="table" id="table" style="width:100%">
 
-        <caption>List of document</caption>
-        <div>
-          <div class="row">
-            <div class="col-sm-2">
-                <h4>รายการเอกสาร</h4>
-            </div>
-            <div class="col-sm-10">
-                <form class="form-inline my-2 my-lg-0">
-                  <input class="form-control mr-sm-2" type="search" placeholder="ค้นหาเอกสาร" aria-label="Search">
-                </form>
-            </div>
-            <div class="col-sm-1"></div>
-          </div>
-        </div>
-
-        <hr>
-
-   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">เพิ่มรายการ</button>
+    
         <thead>
           <tr >
-            <th class="col-md-1 th-grid">#</th>
-            <th class="col-md-1 th-grid">คณะ/หน่วยงาน</th>
-            <th class="col-md-1 th-grid">เลขที่ ศธ.</th>
-            <th class="col-md-3 th-grid long" class="text-nowrap">เรื่อง</th>
-            <th class="col-md-3 th-grid">เลขที่รับส่ง</th>
-            <th class="col-md-3 th-grid">เรียน</th>
-            <th class="col-md-4 th-grid">รายละเอียด</th>
-            <th class="col-md-4 th-grid">แก้ไข</th>
-            <th class="col-md-4 th-grid">ลบ</th>
+            <th>#</th>
+            <th>คณะ/หน่วยงาน</th>
+            <th>เลขที่ ศธ.</th>
+            <th>เรื่อง</th>
+            <th>เลขที่รับส่ง</th>
+            <th>เรียน</th>
+            <th>ac</th>
           </tr>
         </thead>
         <tbody>
@@ -146,21 +120,30 @@
             <?php 
             $i=1;
             ?>
-            	@foreach($Data['Document'] as $key => $value)
+            	@foreach($Document as $key => $value)
 					<tr>        
-                                            <td class="td-grid">{{ $i++ }}</td>
-                                            <td class="td-grid">{{ $value->FACULTY_ID }}</td>
-						 <td class="td-grid">{{ $value->DOCUMENT_ST_NUMBER }}</td>
-                                                    <td class="td-grid">{{ $value->DOCUMENT_NOTATION }}</td>
-                                                    <td class="td-grid">{{ $value->DOCUMENT_NUMBER }}</td>
-                                                    <td class="td-grid">{{ $value->DOCUMENT_TO }}</td>
-                                                     <td class="td-grid"><a class="btn btn-xs btn-success" href="{{ URL::to('document/' . $value->DOCUMENT_ID) }}">Show</a></td>
-                                                      <td class="td-grid"><a class="btn btn-xs btn-info" href="{{ URL::to('document/' . $value->DOCUMENT_ID . '/edit') }}">Edit</a></td>
-						<td class="td-grid">
-							<form id="form_action"  class="form-horizontal" method="POST" action="{{ URL('document/'.$value->DOCUMENT_ID) }}">
+                                            <td>{{ $i++ }}</td>
+                                            <td>{{ $value->FACULTY_ID }}</td>
+						 <td>{{ $value->DOCUMENT_ST_NUMBER }}</td>
+                                                    <td>{{ $value->DOCUMENT_NOTATION }}</td>
+                                                    <td>{{ $value->DOCUMENT_NUMBER }}</td>
+                                                    <td>{{ $value->DOCUMENT_TO }}</td>
+                                                    <!--<td><button type="button" class="btn btn-warning" style="color:white;">เพิ่มเติม</button></td>-->
+						<td>
+			
+							<!-- delete the nerd (uses the destroy method DESTROY /blogs/{id} -->
+							<!-- we will add this later since its a little more complicated than the other two buttons -->
+							<form id="form_action_del" class="form-horizontal" method="POST" action="{{ URL('document/'.$value->DOCUMENT_ID) }}">
 							{{ csrf_field() }}
 							{{ method_field('DELETE') }}
-                                                <button  type="submit" class="btn btn-xs btn-danger">Delete</button>
+							
+							<!-- show the nerd (uses the show method found at GET /users/{id} -->
+							<a class="btn btn-xs btn-success" href="{{ URL::to('document/' . $value->DOCUMENT_ID) }}">Show</a>
+			
+							<!-- edit this nerd (uses the edit method found at GET /users/{id}/edit -->
+							<a class="btn btn-xs btn-info" href="{{ URL::to('document/' . $value->DOCUMENT_ID . '/edit') }}">Edit</a>
+							
+							<button type="submit" class="btn btn-xs btn-danger">Delete</button>
 							</form>
 			
 			
@@ -172,9 +155,11 @@
       </table>
   </div>
 <script>
-
-
-$( "#form_action" ).submit(function( event ) {
+    
+  $(document).ready(function() {
+    $('#table').DataTable();
+} );
+$( "#form_action_del" ).submit(function( event ) {
   if(confirm("ต้องการลบข้อมูลหรือไม่!")){
       return;
   }else{
@@ -184,8 +169,9 @@ $( "#form_action" ).submit(function( event ) {
 });
 
 
+
+
     </script>
-    
   <style>
       h3{
         font-weight: bold;

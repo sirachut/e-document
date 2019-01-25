@@ -16,7 +16,7 @@ class Barcode extends Model
     
     protected $table = 'barcode';
     protected $fillable = [
-       'BARCODE_ID', 'NUM_FROM', 'NUM_TO', 'RECORD_STATUS','CREATE_DATE','PRINT_STATUS',
+       'BARCODE_ID', 'NUM_FROM', 'NUM_TO', 'RECORD_STATUS','CREATE_DATE',
     ];
 
 
