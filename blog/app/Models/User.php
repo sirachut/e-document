@@ -16,7 +16,8 @@ class User extends Model
     
     protected $table = 'sys_user';
     protected $fillable = [
-       'USER_ID', 'USERNAME', 'DISPLAY_NAME', 'DEPARTMENT_ID','FACULTY_ID','MOBILE',
+       'USER_ID', 'USERNAME', 'DISPLAY_NAME', 'DEPARTMENT_ID','FACULTY_ID','USER_CODE','TELEPHONE','MOBILE','EMAIL','IS_ACTIVE','USER_TYPE','RECORD_STATUS','CREATE_DATE',
+        'CREATE_USER','LAST_DATE','LAST_USER',
     ];
 
 

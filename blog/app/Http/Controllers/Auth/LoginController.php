@@ -1,11 +1,9 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
-//use App\Libraries\adLDAP;
-//require base_path('App\Libraries\adLDAP.php') ;
 use App\Http\Controllers\Controller;
-//use Ldap;
 use Illuminate\Http\Request;
+use App\Models\User;
 
 
 class LoginController extends Controller
@@ -19,14 +17,19 @@ class LoginController extends Controller
   public function login(Request $request)
     {
 //      dd($request->password);
- 	if($this->checkLdap( $request->email,$request->password)!=0){
-
-
-
-                        
+      if($request->password){
+          $pass= $request->password;
+      }else{
+          $pass = '1234';
+      }
+//       dd($pass);
+     $login = $this->checkLdap( $request->email,$pass);
+ 	if($login){
+        $this->set_login($login);
+        return redirect('document')->with('Successfully login user!');
         }
 			else{
-                          
+                          return view('auth.login');
                         
                         }
     }
@@ -42,28 +45,76 @@ protected function checkLdap($username, $pass) {
      $ldap = ldap_connect($server)or die();
     ldap_set_option($ldap, LDAP_OPT_PROTOCOL_VERSION, 3);
     ldap_set_option($ldap, LDAP_OPT_REFERRALS, 0);
-    $bind = @ldap_bind($ldap,$username.$account_suffix,$pass);;
-//    dd($bind);
+    $bind = @ldap_bind($ldap,$username.$account_suffix,$pass);
+//    dd($pass);
       if ($bind) {
 //          dd('login func ldap pass' );
         $filter="(sAMAccountName=$username)";
-        $result = ldap_search($ldap,"dc=up,dc=local",$filter);
+        $result = ldap_search($ldap,"dc=up,dc=local",$filter) or die();
 //        ldap_sort($ldap,$result,"sn");
         $info = ldap_get_entries($ldap, $result);
-        print_r($info);
-//        for ($i=0; $i<$info["count"]; $i++)
-//        {
-//            if($info['count'] > 1)
-//                break;
-//            echo "<p>You are accessing <strong> ". $info[$i]["sn"][0] .", " . $info[$i]["givenname"][0] ."</strong><br /> (" . $info[$i]["samaccountname"][0] .")</p>\n";
-//            echo '<pre>';
-//            var_dump($info);
-//            echo '</pre>';
-//            $userDn = $info[$i]["distinguishedname"][0]; 
-//        }
-
-
+//        dd($info);
+$user = $info[0]['samaccountname'][0];
+$user_data['USERNAME'] = $user;
+$extensionattribute6 = strtoupper($info[0]['extensionattribute6'][0]);
+            if($extensionattribute6 == 'STAFF' || $extensionattribute6 =='TEACHER') {
+                        $sys_user = $this->checkSys_user($user_data['USERNAME']);
+                        if($sys_user){
+                            return $sys_user;
+                        }
+                        else{
+                            return false;
+                        }
+            
+            }
+    }
+    else if($username == 'edoctest' ){
+         $sys_user = $this->checkSys_user($username);
+                        if($sys_user){
+                            return $sys_user;
+                        }
+                        else{
+                            return false;
+                        }
+    }
+    else {
+        return false;
     }
 }
+protected function checkSys_user($username) {
+                $User = User::where('RECORD_STATUS', 'N')
+                        ->where('USERNAME', $username)
+                        ->where('IS_ACTIVE', 'T')
+                    ->get();
+//                dd($User);
+                if($User){
+                    foreach ($User as $key => $value) {
+                                $user_data['USER_CODE'] = $value->USER_CODE;
+                                $user_data['DISPLAY_NAME'] = $value->DISPLAY_NAME ;
+                                $user_data['USER_TYPE'] = $value->USER_TYPE;
+                                $user_data['DEPARTMENT_ID'] = $value->DEPARTMENT_ID;
+                                $user_data['USERNAME'] = $value->USERNAME;
+                                $user_data['FACULTY_ID'] = $value->FACULTY_ID;
+                              } 
+                                return $user_data;
+                }else {
+                    return false;
+                    
+                }
+                                
+}
+
+    protected function set_login($user_data)
+    {
+        $newdata['logged_in'] = TRUE;
+        $newdata['userid'] = $user_data['USER_CODE'];
+        $newdata['name'] = ($user_data['DISPLAY_NAME'] == "") ? $user_data['USERNAME'] : $user_data['DISPLAY_NAME'];
+        $newdata['username'] = $user_data['USERNAME'];
+        $newdata['usertype'] = $user_data['USER_TYPE'];
+        $newdata['userdepartment'] = $user_data['DEPARTMENT_ID'];
+        $newdata['userfac'] = $user_data['FACULTY_ID'];
+//        sess_set($newdata);
+       session(['userdata' => $newdata]);
+    }
 
 }

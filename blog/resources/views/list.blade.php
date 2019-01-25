@@ -87,6 +87,9 @@
 </div>
 
 <div class="table-responsive-lg table-hover container " style="margin-top: 70px">
+    <div><?php $userdata = Session::get('userdata');
+    echo $userdata['username'];
+    ?></div>
   <form>
 				
 							
