@@ -1,9 +1,8 @@
-@extends('template')
+@extends('layouts.app')
+
+@section('title', 'Table of Document')
 
 @section('content')
-
-
-
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -25,9 +24,9 @@
 					@endforeach
 					</ul>
 					@endif
-					
+
                         {{ csrf_field() }}
-                        
+
                             <div class="form-group{{ $errors->has('DOCUMENT_NUMBER') ? ' has-error' : '' }}">
                             <label for="title" class="col-md-4 control-label">เลข Barcode* : </label>
 
@@ -41,7 +40,7 @@
                                 @endif
                             </div>
                         </div>
-						
+
                         <div class="form-group{{ $errors->has('DOCUMENT_PRIORITY') ? ' has-error' : '' }}">
                             <label for="title" class="col-md-4 control-label">ประเภทเอกสาร* : </label>
 
@@ -91,16 +90,16 @@
     echo $userdata['username'];
     ?></div>
   <form>
-				
-							
+
+
    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
 เพิ่มรายการ
 </button>
 </form>
- 
+
     <table class="table" id="table" style="width:100%">
 
-    
+
         <thead>
           <tr >
             <th>#</th>
@@ -120,11 +119,11 @@
             <td class="td-grid">doc_number</td>
             <td><button type="button" class="btn btn-warning" style="color:white;">เพิ่มเติม</button></td>
           </tr>-->
-            <?php 
+            <?php
             $i=1;
             ?>
             	@foreach($Document as $key => $value)
-					<tr>        
+					<tr>
                                             <td>{{ $i++ }}</td>
                                             <td>{{ $value->FACULTY_ID }}</td>
 						 <td>{{ $value->DOCUMENT_ST_NUMBER }}</td>
@@ -133,32 +132,32 @@
                                                     <td>{{ $value->DOCUMENT_TO }}</td>
                                                     <!--<td><button type="button" class="btn btn-warning" style="color:white;">เพิ่มเติม</button></td>-->
 						<td>
-			
+
 							<!-- delete the nerd (uses the destroy method DESTROY /blogs/{id} -->
 							<!-- we will add this later since its a little more complicated than the other two buttons -->
 							<form id="form_action_del" class="form-horizontal" method="POST" action="{{ URL('document/'.$value->DOCUMENT_ID) }}">
 							{{ csrf_field() }}
 							{{ method_field('DELETE') }}
-							
+
 							<!-- show the nerd (uses the show method found at GET /users/{id} -->
 							<a class="btn btn-xs btn-success" href="{{ URL::to('document/' . $value->DOCUMENT_ID) }}">Show</a>
-			
+
 							<!-- edit this nerd (uses the edit method found at GET /users/{id}/edit -->
 							<a class="btn btn-xs btn-info" href="{{ URL::to('document/' . $value->DOCUMENT_ID . '/edit') }}">Edit</a>
-							
+
 							<button type="submit" class="btn btn-xs btn-danger">Delete</button>
 							</form>
-			
-			
+
+
 						</td>
 					</tr>
-                                        
+
 				@endforeach
         </tbody>
       </table>
   </div>
 <script>
-    
+
   $(document).ready(function() {
     $('#table').DataTable();
 } );

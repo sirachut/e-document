@@ -11,11 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
-
-Route::get('/list', ['as'=>'list','uses'=>'DocumentController@index']);
+Route::get('/', ['as'=>'list','uses'=>'DocumentController@index']);
 
 Route::resource('user', 'UserController');
 Route::resource('document', 'DocumentController');
@@ -33,3 +29,8 @@ Route::post('login', 'Auth\LoginController@Login');
 //Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/', function () {
+    return view('home');
+});
+
