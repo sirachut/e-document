@@ -31,20 +31,20 @@ class DocumentController extends Controller
 
     public function store(Request $request)
     {
-     
+
 		$this->validate($request, [
                                 'DOCUMENT_NUMBER' => 'required|string',
 				'DOCUMENT_PRIORITY' => 'required|string',
 				'DOCUMENT_ST_NUMBER' => 'required|string',
 		]);
-		
+
 		// store
 		$document = new Document;
                 $document->DOCUMENT_NUMBER = $request->input('DOCUMENT_NUMBER');
 		$document->DOCUMENT_ST_NUMBER = $request->input('DOCUMENT_ST_NUMBER');
 		$document->DOCUMENT_PRIORITY = $request->input('DOCUMENT_PRIORITY');
 		$document->save();
- 
+
 		// redirect
 		return redirect('list')->with('message', 'เพิ่มเอกสารสำเร็จ!');
     }
@@ -85,12 +85,12 @@ class DocumentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-            
+
     {
 		$Document = Document::findOrFail($id);
 		$Document->RECORD_STATUS = 'D';
 		$Document->save();
- 
+
 		// redirect
 		return redirect('document')->with('message', 'ลบข้อมูลสำเร็จ!');
     }

@@ -25,9 +25,10 @@ Route::get('/html-to-pdf', ['as'=>'HtmlToPDF','uses'=>'PdfDemoController@htmlToP
 
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@Login');
+Route::get('logout', 'Auth\LoginController@Logout');
 //Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 //Auth::routes();
-
+Route::get('group/{gid}', 'Auth\LoginController@index');
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/', function () {

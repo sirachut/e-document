@@ -1,4 +1,4 @@
-@extends('template')
+@extends('layouts.app')
 @section('content')
 <div class="table-responsive-lg table-hover container " style="margin-top: 70px">
 
@@ -8,7 +8,7 @@
                                                 <button  type="submit" class="btn btn-primary">สร้าง Barcode ใหม่</button>
 							</form>
 <table class="table" id="table" style="width:100%">
-    
+
 
         <thead>
           <tr >
@@ -23,29 +23,29 @@
         </thead>
         <tbody>
 
-            <?php 
+            <?php
             $i=1;
             ?>
             	@foreach($Data['Barcode'] as $key => $value)
-					<tr>        
+					<tr>
                                             <td>{{ $i++ }}</td>
                                             <td>{{ $value->NUM_FROM }}</td>
 						 <td>{{ $value->NUM_TO }}</td>
                                                     <td>{{ $value->CREATE_DATE }}</td>
                                                     <td>{{ $value->PRINT_STATUS }}</td>
                                                      <td><a target="_blank" class="btn btn-xs btn-success" href="{{ URL::to('barcode/' . $value->BARCODE_ID) }}">Show</a></td>
-                                                  
+
 						<td>
 							<form id="form_action_del"   method="POST" action="{{ URL('barcode/'.$value->BARCODE_ID) }}">
 							{{ csrf_field() }}
 							{{ method_field('DELETE') }}
                                                 <button  type="submit" class="btn btn-xs btn-danger">Delete</button>
 							</form>
-			
-			
+
+
 						</td>
 					</tr>
-                                        
+
 				@endforeach
         </tbody>
       </table>
@@ -53,8 +53,8 @@
   </div>
 
 
- 
-  
+
+
 <script>
 
 
@@ -82,7 +82,7 @@ $( "#form_action_add" ).submit(function( event ) {
 
 
     </script>
-    
+
   <style>
       h3{
         font-weight: bold;

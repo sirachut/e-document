@@ -13,6 +13,7 @@
             font-family: 'Sarabun', sans-serif;
         }
     </style>
+
 <body>
 
     @include('layouts.navbar')
@@ -20,8 +21,6 @@
     <div>
         @yield('content')
     </div>
-
-    {{-- <img src="{{url('/images/Capture.JPG')}}" alt="Image"/> --}}
 
 </body>
 
