@@ -4,19 +4,22 @@
 
 @section('content')
 
-{{-- @include('mdb.modalRight') --}}
+<style>
+    table{
 
+    }
+</style>
 
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 
         <div class="modal-content">
 
             <div class="modal-header">
 
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <h5 class="modal-title" id="exampleModalLabel"> <i class="fas fa-plus-square"></i> &nbsp; เพิ่มบันทึกข้อความ</h5>
 
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -38,8 +41,79 @@
 
                     {{ csrf_field() }}
 
-                    <div class="form-group{{ $errors->has('DOCUMENT_NUMBER') ? ' has-error' : '' }}">
+                    <!-- Material input -->
+
+
+                    <form>
+                            <div class="form-row">
+                                <div class="form-group col-md-7">
+                                    <label for="FACULTY_NAME_TH">หน่วยงาน</label>
+
+                    <select class="form-control">
+                            <option selected>กรุณาเลือกหน่วยงาน...</option>
+
+                            @foreach($Faculty as $key => $value)
+
+                                        {{-- <option>คณะเทคโนโลยีสารสนเทศและการสื่อสาร</option> --}}
+                                        <option>{{ $value->FACULTY_NAME_TH }}</option>
+                                        @endforeach
+                                    </select>
+
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="faculty_department">ฝ่ายงาน</label>
+                                    <input type="text" class="form-control" id="faculty_department" placeholder="ฝ่ายงานของหน่วยงาน">
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label for="faculty_tel">โทร.</label>
+                                    <input type="text" class="form-control" id="faculty_tel" placeholder="xxxx" maxlength="4">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="DOCUMENT_ST_NUMBER">ที่</label>
+                                    <input type="text" class="form-control" id="DOCUMENT_ST_NUMBER" placeholder="เลขที่ ศธ.">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="DOCUMENT_DATEIN">วันที่</label>
+
+                                    <input id="DOCUMENT_DATEIN" class="form-control">
+                                    <script>
+                                        $('#DOCUMENT_DATEIN').datepicker({
+                                            uiLibrary: 'bootstrap4',
+                                        });
+                                    </script>
+
+                                </div>
+                            </div>
+                            <div class="form-row">
+                              <div class="form-group col-md-6">
+                                <label for="DOCUMENT_NAME">เรื่อง</label>
+                                <input type="text" class="form-control" id="DOCUMENT_NAME">
+                              </div>
+                              <div class="form-group col-md-4">
+                                <label for="inputState">State</label>
+                                <select id="inputState" class="form-control">
+                                  <option selected>Choose...</option>
+                                  <option>...</option>
+                                </select>
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="gridCheck">
+                                <label class="form-check-label" for="gridCheck">
+                                  Check me out
+                                </label>
+                              </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary" style="float:right">Sign in</button>
+                          </form>
+
+
+                    {{-- <div class="form-group{{ $errors->has('DOCUMENT_NUMBER') ? ' has-error' : '' }}">
                         <label for="title" class="col-md-4 control-label">เลข Barcode* : </label>
+                        <!-- Material input -->
 
                         <div class="col-md-6">
 
@@ -90,15 +164,15 @@
                                 สร้าง
                             </button>
                         </div>
-                    </div>
+                    </div> --}}
 
                 </form>
             </div>
-
+{{--
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
+            </div> --}}
 
         </div>
     </div>
@@ -113,22 +187,23 @@
     </div>
 
     <form>
+
         <table class="table" id="table" style="width:100%">
 
-            <div>
-                <div class="row">
 
-                    <div class="col-sm-5">
-                        <h1 style="line-height: 0.7;">ตารางแสดงรายการสินค้า</h1>
+                <div>
+                            <div class="row">
+
+                            <div class="col-sm-7">
+                                <h1 style="line-height: 0.7;">ตารางแสดงรายการบันทึกข้อความ</h1>
+                            </div>
+
+                            <div class="col-sm-5">
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"> <i class="fas fa-plus-square"></i> &nbsp; เพิ่มรายการ</button>
+                            </div>
+
+                        </div>
                     </div>
-
-                    <div class="col-sm-">
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">เพิ่มรายการ</button>
-                    </div>
-
-                </div>
-            </div>
-
             <thead>
                 <tr >
                     <th>#</th>
@@ -159,8 +234,13 @@
                         <td>{{ $i++ }}</td>
                         {{-- <td>{{ $value->FACULTY_ID }}</td> --}}
                         <td>{{ $value->DOCUMENT_ST_NUMBER }}</td>
-                        <td>{{ $value->DOCUMENT_NAME }}</td>
-                        <td>{{  strftime("%d %b %Y",strtotime($value->DATE_IN)) }}</td>
+                        <td style="width: 40%">{{ $value->DOCUMENT_NAME }}</td>
+                        {{-- <td>{{  strftime("%d %b %Y",strtotime($value->DATE_IN)) }}</td> --}}
+                        <td>
+                                @php
+                                    echo App\Http\Controllers\DocumentController::DateThai($value->DATE_IN);
+                                @endphp
+                        </td>
                         {{-- <td>{{ $value->DOCUMENT_TO }}</td> --}}
                         <!--<td><button type="button" class="btn btn-warning" style="color:white;">เพิ่มเติม</button></td>-->
                         <td>
@@ -191,8 +271,13 @@
 
 <script>
     $(document).ready(function() {
-        $('#table').DataTable();
-    });
+    $('#table').DataTable( {
+        "bFilter" : false,
+        "bLengthChange": false,
+        "searching": true,
+
+    } );
+} );
 
     $( "#form_action_del" ).submit(function( event ) {
         if(confirm("ต้องการลบข้อมูลหรือไม่!")){
@@ -202,6 +287,7 @@
         }
     });
 </script>
+
 
 <style>
     h3{
@@ -228,5 +314,6 @@
         }
     }
 </style>
+
 
 @endsection

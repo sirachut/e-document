@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Document;
+use App\Models\Faculty;
 
 
 class DocumentController extends Controller
@@ -15,12 +16,17 @@ class DocumentController extends Controller
      */
     public function index()
     {
-//            $Document = Document::all()->sortByDesc('DATE_IN');
-            $Document = Document::where('RECORD_STATUS', 'N')
-                     ->orderBy('DATE_IN', 'desc')
-                    ->get();
-        return View('list')
-            ->with('Document', $Document);
+
+        // $Document = Document::where('RECORD_STATUS', 'N')
+        //              ->orderBy('DATE_IN', 'desc')
+        //             ->get();
+
+        $Faculty = Faculty::all()->sortByDesc('LAST_DATE');
+        $Document = Document::all()->sortByDesc('DATE_IN');
+        // $Faculty = Faculty::all()->sortByDesc('LASTE_DATE');
+        return View('/list/index')
+            ->with('Document', $Document)
+            ->with('Faculty',$Faculty);
     }
 
     public function create()
@@ -33,14 +39,14 @@ class DocumentController extends Controller
     {
 
 		$this->validate($request, [
-                                'DOCUMENT_NUMBER' => 'required|string',
+                'DOCUMENT_NUMBER' => 'required|string',
 				'DOCUMENT_PRIORITY' => 'required|string',
 				'DOCUMENT_ST_NUMBER' => 'required|string',
 		]);
 
 		// store
 		$document = new Document;
-                $document->DOCUMENT_NUMBER = $request->input('DOCUMENT_NUMBER');
+        $document->DOCUMENT_NUMBER = $request->input('DOCUMENT_NUMBER');
 		$document->DOCUMENT_ST_NUMBER = $request->input('DOCUMENT_ST_NUMBER');
 		$document->DOCUMENT_PRIORITY = $request->input('DOCUMENT_PRIORITY');
 		$document->save();
@@ -94,4 +100,19 @@ class DocumentController extends Controller
 		// redirect
 		return redirect('document')->with('message', 'ลบข้อมูลสำเร็จ!');
     }
+
+    public static function DateThai($strDate)
+    {
+        $strYear = date("Y",strtotime($strDate))+543;
+        $strMonth= date("n",strtotime($strDate));
+        $strDay= date("j",strtotime($strDate));
+        // $strHour= date("H",strtotime($strDate));
+        // $strMinute= date("i",strtotime($strDate));
+        // $strSeconds= date("s",strtotime($strDate));
+        $strMonthFull = Array("","มกราคม","กุมภาพันธ์","มีนาคม","เมษายน","พฤษภาคม","มิถุนายน","กรกฎาคม","สิงหาคม","กันยายน","ตุลาคม","พฤศจิกายน","ธันวาคม");
+        $strMonthCut = Array("","ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค.");
+        $strMonthThai=$strMonthFull[$strMonth];
+        return "$strDay $strMonthThai $strYear";
+    }
+
 }

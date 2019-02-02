@@ -13,9 +13,13 @@
 
 Route::get('/', ['as'=>'list','uses'=>'DocumentController@index']);
 
+
+
 Route::resource('user', 'UserController');
 Route::resource('document', 'DocumentController');
 Route::resource('barcode', 'BarcodeController');
+// Route::resource('faculty', 'FacultyController');
+
 
 Route::get('/pdf', ['as'=>'PdfDemo','uses'=>'PdfDemoController@index']);
 Route::get('/sample-pdf', ['as'=>'SamplePDF','uses'=>'PdfDemoController@samplePDF']);
@@ -37,5 +41,9 @@ Route::get('/', function () {
 
 Route::get('/mdb', function () {
     return view('mdb.modalRight');
+});
+
+Route::get('/test', function () {
+    return view('list.testdate');
 });
 

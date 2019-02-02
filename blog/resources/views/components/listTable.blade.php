@@ -13,15 +13,15 @@
                <form class="form-horizontal" method="POST" action="{{ URL('/document') }}">
 					<!-- if there are creation errors, they will show here -->
 					@if($errors->all())
-					<ul class="has-error">
-					@foreach ($errors->all() as $message)
-						<li>{{ $message }}</li>
-					@endforeach
-					</ul>
+                        <ul class="has-error">
+                        @foreach ($errors->all() as $message)
+                            <li>{{ $message }}</li>
+                        @endforeach
+                        </ul>
 					@endif
-					
+
                         {{ csrf_field() }}
-                        
+
                             <div class="form-group{{ $errors->has('DOCUMENT_NUMBER') ? ' has-error' : '' }}">
                             <label for="title" class="col-md-4 control-label">เลข Barcode* : </label>
 
@@ -35,7 +35,7 @@
                                 @endif
                             </div>
                         </div>
-						
+
                         <div class="form-group{{ $errors->has('DOCUMENT_PRIORITY') ? ' has-error' : '' }}">
                             <label for="title" class="col-md-4 control-label">ประเภทเอกสาร* : </label>
 
@@ -81,7 +81,7 @@
 </div>
 
 <div class="table-responsive-lg table-hover container " style="margin-top: 70px">
- 
+
     <table class="table table-borderless">
 
         <caption>List of document</caption>
@@ -154,4 +154,3 @@
 
   </script>
 
- 
