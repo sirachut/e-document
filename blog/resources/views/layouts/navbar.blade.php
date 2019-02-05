@@ -18,7 +18,7 @@
 
             <li class="nav-item">
 
-                <a class="nav-link" href="{{ URL('/document') }}"><i class="fas fa-align-left"></i> &nbsp; ดูรายการเอกสาร</a>
+                <a class="nav-link" href="{{ URL('/documents') }}"><i class="fas fa-align-left"></i> &nbsp; ดูรายการเอกสาร</a>
 
             </li>
 

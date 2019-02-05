@@ -1,18 +1,16 @@
-@extends('layouts.app')
+@extends('documents.app')
 
 @section('title', 'Table of Document')
 
 @section('content')
 
-<style>
-    table{
-
-    }
-</style>
+<div class="pull-right">
+    <a class="btn btn-success" href="{{ route('documents.create') }}"> Create New Product</a>
+</div>
 
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+{{-- <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 
         <div class="modal-content">
@@ -39,11 +37,11 @@
                         </ul>
                     @endif
 
-                    {{ csrf_field() }}
+                    {{ csrf_field() }} --}}
 
                     <!-- Material input -->
 
-
+{{--
                     <form>
                             <div class="form-row">
                                 <div class="form-group col-md-7">
@@ -52,11 +50,9 @@
                     <select class="form-control">
                             <option selected>กรุณาเลือกหน่วยงาน...</option>
 
-                            @foreach($Faculty as $key => $value)
-
-                                        {{-- <option>คณะเทคโนโลยีสารสนเทศและการสื่อสาร</option> --}}
+                                    @foreach($Faculty as $key => $value)
                                         <option>{{ $value->FACULTY_NAME_TH }}</option>
-                                        @endforeach
+                                    @endforeach
                                     </select>
 
                                 </div>
@@ -108,7 +104,7 @@
                               </div>
                             </div>
                             <button type="submit" class="btn btn-primary" style="float:right">Sign in</button>
-                          </form>
+                          </form> --}}
 
 
                     {{-- <div class="form-group{{ $errors->has('DOCUMENT_NUMBER') ? ' has-error' : '' }}">
@@ -164,98 +160,87 @@
                                 สร้าง
                             </button>
                         </div>
-                    </div> --}}
+                    </div>
 
                 </form>
             </div>
-{{--
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary">Save changes</button>
-            </div> --}}
+            </div>
 
         </div>
     </div>
-</div>
+</div> --}}
+
+{{-- <div>
+    @php
+        $userdata = Session::get('userdata');
+        echo $userdata['username'];
+    @endphp
+</div> --}}
+
+@if ($message = Session::get('success'))
+        <div class="alert alert-success">
+            <p>{{ $message }}</p>
+        </div>
+@endif
 
 <div class="table-responsive-lg table-hover container " style="margin-top: 70px">
-    <div>
-        <?php
-            $userdata = Session::get('userdata');
-            echo $userdata['username'];
-        ?>
-    </div>
-
     <form>
-
         <table class="table" id="table" style="width:100%">
-
-
                 <div>
-                            <div class="row">
+                    <div class="row">
 
-                            <div class="col-sm-7">
-                                <h1 style="line-height: 0.7;">ตารางแสดงรายการบันทึกข้อความ</h1>
-                            </div>
-
-                            <div class="col-sm-5">
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"> <i class="fas fa-plus-square"></i> &nbsp; เพิ่มรายการ</button>
-                            </div>
-
-                        </div>
+                    <div class="col-sm-7">
+                        <h1 style="line-height: 0.7;">ตารางแสดงรายการบันทึกข้อความ</h1>
                     </div>
+
+                    {{-- <div class="col-sm-5">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"> <i class="fas fa-plus-square"></i> &nbsp; เพิ่มรายการ</button>
+                    </div> --}}
+
+                    </div>
+                </div>
             <thead>
                 <tr >
                     <th>#</th>
-                    {{-- <th>คณะ/หน่วยงาน</th> --}}
+
                     <th>เลขที่ ศธ.</th>
                     <th>หัวรื่อง</th>
                     <th>วันที่รับเข้า</th>
-                    {{-- <th>เรียน</th> --}}
+
                     <th>Action</th>
                 </tr>
             </thead>
 
             <tbody>
-            <!--          <tr>
-                <td class="td-grid">doc_id</td>
-                <td class="td-grid">doc_priority</td>
-                <td class="td-grid sub_str">ขอส่งคำสั่งคณะเทคโนโลยีสารสนเทศและการสื่อสาร ที่ ๐๕๐/๒๕๖๐ เรื่องแต่งตั้งอาจารย์ที่ปรึกษานิสิต ประจำปี ๒๕๖๐ เพื่อบัน</td>
-                <td class="td-grid">doc_number</td>
-                <td><button type="button" class="btn btn-warning" style="color:white;">เพิ่มเติม</button></td>
-                </tr>-->
 
-                <?php
+                @php
                     $i=1;
-                ?>
+                @endphp
 
-                @foreach($Document as $key => $value)
+                @foreach($documents as $key => $value)
                     <tr>
                         <td>{{ $i++ }}</td>
-                        {{-- <td>{{ $value->FACULTY_ID }}</td> --}}
                         <td>{{ $value->DOCUMENT_ST_NUMBER }}</td>
                         <td style="width: 40%">{{ $value->DOCUMENT_NAME }}</td>
-                        {{-- <td>{{  strftime("%d %b %Y",strtotime($value->DATE_IN)) }}</td> --}}
                         <td>
                                 @php
                                     echo App\Http\Controllers\DocumentController::DateThai($value->DATE_IN);
                                 @endphp
                         </td>
-                        {{-- <td>{{ $value->DOCUMENT_TO }}</td> --}}
-                        <!--<td><button type="button" class="btn btn-warning" style="color:white;">เพิ่มเติม</button></td>-->
                         <td>
 
-                            <!-- delete the nerd (uses the destroy method DESTROY /blogs/{id} -->
-                            <!-- we will add this later since its a little more complicated than the other two buttons -->
-                            <form id="form_action_del" class="form-horizontal" method="POST" action="{{ URL('document/'.$value->DOCUMENT_ID) }}">
-                                {{ csrf_field() }}
-                                {{ method_field('DELETE') }}
 
-                                <!-- show the nerd (uses the show method found at GET /users/{id} -->
-                                <a class="btn btn-xs btn-success" href="{{ URL::to('document/' . $value->DOCUMENT_ID) }}">Show</a>
+                            <form class="form-horizontal" method="POST" action="{{ route('documents.destroy',$value->DOCUMENT_ID) }}">
 
-                                <!-- edit this nerd (uses the edit method found at GET /users/{id}/edit -->
-                                <a class="btn btn-xs btn-info" href="{{ URL::to('document/' . $value->DOCUMENT_ID . '/edit') }}">Edit</a>
+                                <a class="btn btn-xs btn-success" href="{{ route('documents.show',$value->DOCUMENT_ID) }}">Show</a>
+
+                                <a class="btn btn-xs btn-info" href="{{ route('documents.edit',$value->DOCUMENT_ID) }}">Edit</a>
+
+                                @csrf
+                                @method('DELETE')
 
                                 <button type="submit" class="btn btn-xs btn-danger">Delete</button>
                             </form>

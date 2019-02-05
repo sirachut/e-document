@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('documents.app')
 @section('content')
 <div class="table-responsive-lg table-hover container " style="margin-top: 70px">
 

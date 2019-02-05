@@ -16,7 +16,7 @@ Route::get('/', ['as'=>'list','uses'=>'DocumentController@index']);
 
 
 Route::resource('user', 'UserController');
-Route::resource('document', 'DocumentController');
+Route::resource('documents', 'DocumentController');
 Route::resource('barcode', 'BarcodeController');
 // Route::resource('faculty', 'FacultyController');
 

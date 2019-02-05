@@ -21,44 +21,53 @@ class DocumentController extends Controller
         //              ->orderBy('DATE_IN', 'desc')
         //             ->get();
 
-        $Faculty = Faculty::all()->sortByDesc('LAST_DATE');
-        $Document = Document::all()->sortByDesc('DATE_IN');
+        // $Faculty = Faculty::all()->sortByDesc('LAST_DATE');
+        $documents = Document::all()->sortByDesc('DATE_IN');
         // $Faculty = Faculty::all()->sortByDesc('LASTE_DATE');
-        return View('/list/index')
-            ->with('Document', $Document)
-            ->with('Faculty',$Faculty);
+        return View('documents.index')
+            ->with('documents', $documents);
+            // ->with('Faculty',$Faculty);
     }
 
     public function create()
     {
-        //
+        return view('documents.create');
     }
 
 
     public function store(Request $request)
     {
 
-		$this->validate($request, [
-                'DOCUMENT_NUMBER' => 'required|string',
-				'DOCUMENT_PRIORITY' => 'required|string',
-				'DOCUMENT_ST_NUMBER' => 'required|string',
-		]);
+		$request->validate([
+            'DOCUMENT_PRIORITY',
+            'DOCUMENT_ST_NUMBER',
+            'DOCUMENT_NAME',
+            'FACULTY_ID',
+            'FACULTY_DEPRATMENT',
+            'FACULTY_TEL',
+            'DOCUMENT_NUMBER',
+            'DOCUMENT_TO',
+            'DOCUMENT_NOTATION',
+        ]);
+
+        Document::create($request->all());
 
 		// store
-		$document = new Document;
-        $document->DOCUMENT_NUMBER = $request->input('DOCUMENT_NUMBER');
-		$document->DOCUMENT_ST_NUMBER = $request->input('DOCUMENT_ST_NUMBER');
-		$document->DOCUMENT_PRIORITY = $request->input('DOCUMENT_PRIORITY');
-		$document->save();
+		// $document = new Document;
+        // $document->DOCUMENT_NUMBER = $request->input('DOCUMENT_NUMBER');
+		// $document->DOCUMENT_ST_NUMBER = $request->input('DOCUMENT_ST_NUMBER');
+		// $document->DOCUMENT_PRIORITY = $request->input('DOCUMENT_PRIORITY');
+		// $document->save();
 
 		// redirect
-		return redirect('list')->with('message', 'เพิ่มเอกสารสำเร็จ!');
+        return redirect()->route('documents.index')
+                        ->with('success','เพิ่มข้อมูลสำเร็จ');
     }
 
 
-    public function show($id)
+    public function show(Document $document)
     {
-        //
+        return view('documents.show',compact('document'));
     }
 
     /**
@@ -67,9 +76,9 @@ class DocumentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Document $document)
     {
-        //
+        return view('documents.edit',compact('document'));
     }
 
     /**
@@ -79,9 +88,32 @@ class DocumentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Document $document)
     {
-        //
+        $request->validate([
+            'DOCUMENT_PRIORITY',
+            'DOCUMENT_ST_NUMBER',
+            'DOCUMENT_NAME',
+            'FACULTY_ID',
+            'FACULTY_DEPRATMENT',
+            'FACULTY_TEL',
+            'DOCUMENT_NUMBER',
+            'DOCUMENT_TO',
+            'DOCUMENT_NOTATION',
+        ]);
+
+        $document->update($request->all());
+
+		// store
+		// $document = new Document;
+        // $document->DOCUMENT_NUMBER = $request->input('DOCUMENT_NUMBER');
+		// $document->DOCUMENT_ST_NUMBER = $request->input('DOCUMENT_ST_NUMBER');
+		// $document->DOCUMENT_PRIORITY = $request->input('DOCUMENT_PRIORITY');
+		// $document->save();
+
+		// redirect
+        return redirect()->route('documents.index')
+                        ->with('success','เพิ่มข้อมูลสำเร็จ');
     }
 
     /**
@@ -90,15 +122,20 @@ class DocumentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Document $document)
 
     {
-		$Document = Document::findOrFail($id);
-		$Document->RECORD_STATUS = 'D';
-		$Document->save();
+		// $Document = Document::findOrFail($id);
+		// $Document->RECORD_STATUS = 'D';
+		// $Document->save();
 
-		// redirect
-		return redirect('document')->with('message', 'ลบข้อมูลสำเร็จ!');
+		// // redirect
+        // return redirect('document')->with('message', 'ลบข้อมูลสำเร็จ!');
+
+        $document->delete();
+
+        return redirect()->route('documents.index')
+                        ->with('success','ลบข้อมูลสำเร็จ');
     }
 
     public static function DateThai($strDate)
