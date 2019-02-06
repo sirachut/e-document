@@ -4,7 +4,7 @@
 
 <style>
     div.bg{
-        background-image:url('');
+        background-image:url('https://www.minervatel.com/images/bg-office.jpg');
         height: 100%;
         background-repeat: no-repeat;
     }
@@ -15,21 +15,21 @@
     <!-- Content -->
     <div class="container">
         <!--Grid row-->
-        <div class="row">
+        <div class="row" style="background:white border-radius: 25px:">
             <!--Grid column-->
-            <div class="col-md-8 white-text text-center text-md-left mt-xl-5 mb-5 wow fadeInLeft" data-wow-delay="0.3s">
+            <div class="col-md-8 white-text text-center text-md-left mt-xl-5 mb-5" style="background-color:white;padding:20px; border-radius:25px" data-wow-delay="0.3s">
                 <h1 class="h1-responsive font-weight mt-sm-5">E-document </h1>
                 <h3>ระบบสารบัญเอกสาร มหาวิทยาลัยพะเยา</h3>
                 <hr class="hr-light">
-                <h6 class="mb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem repellendus quasi fuga nesciunt
-                dolorum nulla magnam veniam sapiente, fugiat! Commodi sequi non animi ea dolor molestiae
-                iste.</h6>
+                <h6 class="mb-4">e-document เป็นระบบติดตามเอกสารทางราชการของมหาวิทยาลัยพะเยา ผ่านระบบ online ทั้งเอกสารภายใน และเอกสารภายนอก
+                    นอกจากนี้ยังสามารถ ตรวจสอบประวัติของเอกสารที่เข้าสู่ระบบ e-document ทั้งหมดได้
+                </h6>
                 <button type="button" class="btn btn-light"> <i class="fas fa-address-card"></i> &nbsp; เกี่ยวกับเรา</button>
                 <button type="button" class="btn btn-link"> <i class="fab fa-leanpub"></i>&nbsp; วิธีการใช้งาน</button>
             </div>
             <!--Grid column-->
-
-            <div class="col-md-4">
+            {{-- <div class="col-md-1"></div>s --}}
+            <div class="col-md-4" style="">
             <!-- Default form login -->
                 {{-- <form class=" p-5">
 

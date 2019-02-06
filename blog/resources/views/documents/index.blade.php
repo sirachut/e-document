@@ -4,9 +4,7 @@
 
 @section('content')
 
-<div class="pull-right">
-    <a class="btn btn-success" href="{{ route('documents.create') }}"> Create New Product</a>
-</div>
+
 
 
 <!-- Modal -->
@@ -187,21 +185,35 @@
 @endif
 
 <div class="table-responsive-lg table-hover container " style="margin-top: 70px">
+        @include('documents.mcreate')
+
+
     <form>
-        <table class="table" id="table" style="width:100%">
-                <div>
-                    <div class="row">
-
-                    <div class="col-sm-7">
-                        <h1 style="line-height: 0.7;">ตารางแสดงรายการบันทึกข้อความ</h1>
-                    </div>
-
-                    {{-- <div class="col-sm-5">
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"> <i class="fas fa-plus-square"></i> &nbsp; เพิ่มรายการ</button>
-                    </div> --}}
-
-                    </div>
+            <div class="row">
+                <div class="col-sm-8">
+                    <h1 style="line-height: 0.7;">ตารางแสดงรายการบันทึกข้อความ &nbsp;</h1>
                 </div>
+                <div class="col-sm-4">
+
+                        {{-- @include('documents.mcreate') --}}
+
+                </div>
+
+            </div>
+        <table class="table" id="table">
+
+                    <div class="row">
+                        {{-- <div>
+                            <a class="btn btn-success" href="{{ route('documents.create') }}"> Create New Product</a>
+                        </div> --}}
+
+                        <div class="col-sm-5">
+                            {{-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                            <i class="fas fa-plus-square"></i> &nbsp; เพิ่มรายการ</button> --}}
+
+                        </div>
+                    </div>
+
             <thead>
                 <tr >
                     <th>#</th>
