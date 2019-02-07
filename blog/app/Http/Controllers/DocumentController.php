@@ -23,10 +23,10 @@ class DocumentController extends Controller
 
         // $Faculty = Faculty::all()->sortByDesc('LAST_DATE');
         $documents = Document::all()->sortByDesc('DATE_IN');
-        // $Faculty = Faculty::all()->sortByDesc('LASTE_DATE');
+        $Faculty = Faculty::all()->sortByDesc('LASTE_DATE');
         return View('documents.index')
-            ->with('documents', $documents);
-            // ->with('Faculty',$Faculty);
+            ->with('documents', $documents)
+            ->with('Faculty',$Faculty);
     }
 
     public function create()

@@ -192,7 +192,8 @@
         </div>
 
         <div>
-            <a class="btn btn-success" href="{{ route('documents.create') }}"> Create New Product</a>
+            {{-- <a class="btn btn-success" href="{{ route('documents.create') }}"> Create New Product</a> --}}
+            @include('documents.create')
 
         </div>
     </div>
