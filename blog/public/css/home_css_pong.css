@@ -1,7 +1,7 @@
 /* footer */
 .footer-copyright {
-    line-height: 20px;
-    background: linear-gradient(to right, #8d44ad36, #f1c40f3a);
+    line-height: 1px;
+    background: linear-gradient(to right, #ffffff, #ffffff);
     color: #999;
   }
   
@@ -303,5 +303,11 @@
 
   
   /* end MaiHero Slider .css */
+  /* margin content home */
+  .margincontenthome{
+      margin-top: -126px;
+
+  }
+  /* End margin content home */
 
   

@@ -8,6 +8,7 @@
 
     <link rel="stylesheet" href="/css/home_css_pong.css">
     <link rel="stylesheet" href="/css/animate.css">
+    <link rel="stylesheet" href="/css/color.css">
 
   
 
