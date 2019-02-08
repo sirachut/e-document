@@ -6,7 +6,7 @@
 
     <link href="https://unpkg.com/gijgo@1.9.11/css/gijgo.min.css" rel="stylesheet" type="text/css" />
 
-    <link rel="stylesheet" href="/css/home_css_pong.css">
+    
     <link rel="stylesheet" href="/css/animate.css">
     <link rel="stylesheet" href="/css/color.css">
 

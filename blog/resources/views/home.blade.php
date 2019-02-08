@@ -2,32 +2,40 @@
 
 @section('content')
 <div class="bghome">
+<link rel="stylesheet" href="/css/home_css_pong.css">
 <!-- Content -->
-   
-        <!-- Main Carousel Section Start -->
-    <div id="main-slide" class="carousel slide" data-ride="carousel">
-        <div class="carousel-inner">
-          <div class="carousel-item active">
-            <img class="responsive" src="{{url('/image/bg_up.jpg')}}" alt="First slide" style="weight: auto;">
-            <div class="carousel-caption d-md-block">
-                <div class="container margincontenthome">
+<!-- Call to action Section -->
+<section class="call-to-action-section">
+        <div class="container">
+          <div class="row justify-content-between">
+            <div class="col-md-12 col-lg-7 col-xs-12 text-left wow animated fadeInLeft titiindex1 " data-wow-delay=".2s">
+              <h1> </h1><br>
+    
+              <div class="col-md-8 white-text text-center text-md-left mt-xl-5 mb-5 wow animated fadeInRight" >
+                    <h1 class="h1-responsive font-weight mt-sm-5">E-document </h1>
+                    <h3>ระบบสารบัญเอกสาร มหาวิทยาลัยพะเยา</h3>
+                   
+                    <h4 class="mb-4 ">e-document เป็นระบบติดตามเอกสารทางราชการของมหาวิทยาลัยพะเยา ผ่านระบบ online ทั้งเอกสารภายใน และเอกสารภายนอก
+                        นอกจากนี้ยังสามารถ ตรวจสอบประวัติของเอกสารที่เข้าสู่ระบบ e-document ทั้งหมดได้
+                    </h4>
+                    <button type="button" class="btn btn-light"> <i class="fas fa-address-card"></i> &nbsp; เกี่ยวกับเรา</button>
+                    <button type="button" class="btn btn-link"> <i class="fab fa-leanpub"></i>&nbsp; วิธีการใช้งาน</button>
+                </div>
+            </div>
+            
+            <div class="col-md-12 col-lg-4 col-xs-12 mt-4 text-left wow animated fadeInleft row" data-wow-delay=".3s"><br>
+              <!-- Login -->
+              <div class="container margincontenthome">
 
                     <!--Grid row-->
                     <div class="row" style="background:white border-radius: 20px:">
                         <!--Grid column-->
-                        <div class="col-md-8 white-text text-center text-md-left mt-xl-5 mb-5 wow animated fadeInRight" >
-                            <h1 class="h1-responsive font-weight mt-sm-5">E-document </h1>
-                            <h3>ระบบสารบัญเอกสาร มหาวิทยาลัยพะเยา</h3>
-                            <hr class="hr-light">
-                            <h6 class="mb-4 ">e-document เป็นระบบติดตามเอกสารทางราชการของมหาวิทยาลัยพะเยา ผ่านระบบ online ทั้งเอกสารภายใน และเอกสารภายนอก
-                                นอกจากนี้ยังสามารถ ตรวจสอบประวัติของเอกสารที่เข้าสู่ระบบ e-document ทั้งหมดได้
-                            </h6>
-                            <button type="button" class="btn btn-light"> <i class="fas fa-address-card"></i> &nbsp; เกี่ยวกับเรา</button>
-                            <button type="button" class="btn btn-link"> <i class="fab fa-leanpub"></i>&nbsp; วิธีการใช้งาน</button>
-                        </div>
+                        
                         <!--Grid column-->
                         {{-- <div class="col-md-1"></div>s --}}
-                        <div class="col-md-4" style="">
+                        <div class="col-md-12">
+                            <!--CardLogin-->
+                            
                         <!-- Default form login -->
                             {{-- <form class=" p-5">
             
@@ -162,27 +170,18 @@
                     </div>
                         <!--Grid row-->
                 </div>
-                        <!-- Content -->
+                      
+    
+    
+              <!-- End Login -->
             </div>
           </div>
-         
         </div>
-      </div>
-      <!-- Main Carousel Section End -->
+      </section>
+      <!-- Call to action Section End -->
 
-            {{-- Main Carousel Section Start --}}
-            <div class="carousel-item">
-                <img class="d-block w-100" src="{{url('/image/bg_up.jpg')}}" alt="Third slide">
-                <div class="carousel-caption d-md-block">
-                  <h1 class="animated wow fadeInDown hero-heading" data-wow-delay=".6s">Multi-purpose Template</h1>
-                  <h5 class="animated fadeInUp wow hero-sub-heading" data-wow-delay=".8s">Ready to Use for Business, Agency, Startup, Portfolio Sites and More...</h5>
-                  <a href="javascript:void(0)" class="animated fadeInUp wow btn btn-common" data-wow-delay=".8s"><i class="material-icons mdi mdi-arrow-collapse-down"></i> Download Now</a>
-                </div>
-              </div>
-            {{-- End Main Carousel Section Start --}}
-     
-
-</div>
+   
+      
 
 
 @endsection

@@ -1,3 +1,4 @@
+<div class="footer navbar-fixed-bottom">
 <div class="footer-copyright">
     <div class="container">
         <div class="row">
@@ -7,3 +8,4 @@
         </div>
       </div>
   </div>
+</div>
