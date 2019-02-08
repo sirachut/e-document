@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light navbar-custom" >
+<!--<nav class="navbar navbar-expand-lg navbar-light bg-light navbar-custom" >
 
     <a class="navbar-icon" href="{{ URL('') }}"><img src="{{url('/images/UPLogo.png')}}" alt="" style="width: auto ; height: 35px;"></a>
 
@@ -60,11 +60,11 @@
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
       </form> --}}
     </div>
-  </nav>
+  </nav>-->
 
 <?php
 
-/* use App\Models\Vw_sys_security_permis;
+ use App\Models\Vw_sys_security_permis;
 
             $list = Vw_sys_security_permis::where('IS_ACTIVE', 'T')->where('DEPARTMENT_ID', Session::get('gid'))
                 ->orderBy('MOD_ORDER', 'ASC')
@@ -127,5 +127,5 @@ echo ' <button class="navbar-toggler" type="button" data-toggle="collapse" data-
                     }
                 } echo '</ul>';echo '</div>';echo '</nav>';
                 ?>
-*/
+
 

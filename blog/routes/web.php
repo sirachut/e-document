@@ -20,6 +20,19 @@ Route::resource('documents', 'DocumentController');
 Route::resource('barcode', 'BarcodeController');
 // Route::resource('faculty', 'FacultyController');
 
+Route::get('sent/{get_gid}', 'SentController@index');
+Route::get('sent', 'SentController@index');
+Route::post('sent_item', 'SentController@add');
+Route::post('director', 'SentController@director');
+Route::get('receive', 'ReceiveController@index');
+Route::post('receive_item', 'ReceiveController@add');
+
+Route::get('done', 'DoneController@index');
+Route::post('done', 'DoneController@done');
+//Route::post('director', 'SentController@director');
+
+Route::get('documentitem/{get_id}', 'DocumentItemController@index');
+
 
 Route::get('/pdf', ['as'=>'PdfDemo','uses'=>'PdfDemoController@index']);
 Route::get('/sample-pdf', ['as'=>'SamplePDF','uses'=>'PdfDemoController@samplePDF']);

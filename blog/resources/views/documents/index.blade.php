@@ -234,6 +234,7 @@
                             <form class="form-horizontal" method="POST" action="{{ route('documents.destroy',$value->DOCUMENT_ID) }}">
 
                                 <a class="btn btn-xs btn-success" href="{{ route('documents.show',$value->DOCUMENT_ID) }}">Show</a>
+                                <a class="btn btn-xs btn-success" href="{{ URL::to('documentitem/' . $value->DOCUMENT_ID) }}">Show 2</a>
 
 
                                 <a class="btn btn-xs btn-info" href="{{ route('documents.edit',$value->DOCUMENT_ID) }}">Edit</a>

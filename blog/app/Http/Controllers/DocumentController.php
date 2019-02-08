@@ -22,11 +22,17 @@ class DocumentController extends Controller
         //             ->get();
 
         // $Faculty = Faculty::all()->sortByDesc('LAST_DATE');
-        $documents = Document::all()->sortByDesc('DATE_IN');
+        $documents = Document::where('RECORD_STATUS', 'N') ->orderBy('DATE_IN', 'desc')->get();
         $Faculty = Faculty::all()->sortByDesc('LASTE_DATE');
         return View('documents.index')
             ->with('documents', $documents)
             ->with('Faculty',$Faculty);
+        
+//                    $Document = Document::where('RECORD_STATUS', 'N')
+//                     ->orderBy('DATE_IN', 'desc')
+//                    ->get();
+//            return View('list')
+//            ->with('Document', $Document);
     }
 
     public function create()

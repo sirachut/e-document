@@ -19,7 +19,7 @@ class LoginController extends Controller
           $newdata['gid'] = $gid;
           session(['gid' => $newdata]);
 
-      return redirect('document')->with('message', 'Successfully created blog!');
+      return redirect('documents')->with('message', 'Successfully created blog!');
     }
   public function login(Request $request)
     {

@@ -1,6 +1,9 @@
-@extends('template')
+@extends('documents.app')
+
+@section('title', 'Table of Document')
 
 @section('content')
+
 
 
 
@@ -112,31 +115,7 @@ $( "#form_action_del" ).submit(function( event ) {
 
 
     </script>
-  <style>
-      h3{
-        font-weight: bold;
-      }
-      .th-grid {
-        width: auto !important;
-      }
-      .long {
-        width: 40% !important;
-      }
-      @media only screen and (max-width: 600px) {
-        .long {
-        width: auto !important;
-        }
-        .th-grid:nth-child(even) {
-          display: none;
-        }
-        .td-grid:nth-child(even) {
-          display: none;
-        }
-        .btn-warning {
-          display: none;
-        }
-      }
-  </style>
+  
 
   <script type="text/javascript">
 

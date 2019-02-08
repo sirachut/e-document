@@ -1,7 +1,8 @@
-@extends('template')
+@extends('documents.app')
+
+@section('title', 'Table of Document')
 
 @section('content')
-
 
 
 
@@ -54,10 +55,10 @@
       <td>{{ $value->ITEM_DATE_IN }}</td>
       <td>{{ $value->ITEM_DATE_OUT }}</td>
       <td><?php
-      if($value->CKT = 'T'){
+      if($value->CKT == 'T'){
           echo '<img src="'. url('/images/true.png').  '"' . ' ">';
       }
-      $value->CKT ?></td>
+     ?></td>
       <td>{{ $value->ITEM_LAST_USER }}</td>
       <td>{{ $value->DETAIL }}</td>
     </tr>
@@ -65,31 +66,6 @@
   </tbody>
 </table>
 
-<!--  <style>
-      h3{
-        font-weight: bold;
-      }
-      .th-grid {
-        width: auto !important;
-      }
-      .long {
-        width: 40% !important;
-      }
-      @media only screen and (max-width: 600px) {
-        .long {
-        width: auto !important;
-        }
-        .th-grid:nth-child(even) {
-          display: none;
-        }
-        .td-grid:nth-child(even) {
-          display: none;
-        }
-        .btn-warning {
-          display: none;
-        }
-      }
-  </style>-->
 
   <script>
 

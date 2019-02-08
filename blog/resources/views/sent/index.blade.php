@@ -1,6 +1,9 @@
-@extends('template')
+@extends('documents.app')
+
+@section('title', 'Table of Document')
 
 @section('content')
+
 
 
 

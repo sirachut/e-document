@@ -26,6 +26,5 @@ function form_select_department()
         $html .="<option value='".$val['DEPARTMENT_ID']."'>".$val['DEPARTMENT_NAME']."</option>";
     }
   $html .="</select>";
-   
     echo "$html";
 }
