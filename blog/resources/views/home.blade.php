@@ -1,27 +1,52 @@
 @extends('documents.app')
 
 @section('content')
-
-<style>
-    div.bg{
-        background-image:url('https://www.minervatel.com/images/bg-office.jpg');
-        height: 100%;
-        background-repeat: no-repeat;
-    }
-</style>
-
-<div class="bg">
+<div class="bghome">
 
     <!-- Content -->
     <div class="container">
         <!--Grid row-->
-        <div class="row" style="background:white border-radius: 25px:">
+        <div class="row" style="background:white border-radius: 20px:">
+
+             <!-- Main Carousel Section Start -->
+    <div id="main-slide" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+          <li data-target="#main-slide" data-slide-to="0" class="active"></li>
+
+        </ol>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img class="responsive" src="{{url('/image/bg_up.jpg')}}" alt="First slide" style="weight: 600px;" important;>
+            <div class="carousel-caption d-md-block">
+              <h1 class="animated wow fadeInDown hero-heading" data-wow-delay=".4s">Crafted with Bootstrap 4</h1>
+              <h5 class="animated fadeInUp wow hero-sub-heading" data-wow-delay=".6s">Material Design Meets With The Power of Bootstrap 4</h5>
+              <a href="javascript:void(0)" class="animated fadeInUp wow btn btn-common" data-wow-delay=".8s"><i class="material-icons mdi mdi-lightbulb-outline"></i> Explore<div class="ripple-container"></div></a>
+            </div>
+          </div>
+         
+        </div>
+      </div>
+      <!-- Main Carousel Section End -->
+
+            {{-- Main Carousel Section Start --}}
+            <div class="carousel-item">
+                <img class="d-block w-100" src="{{url('/image/bg_up.jpg')}}" alt="Third slide">
+                <div class="carousel-caption d-md-block">
+                  <h1 class="animated wow fadeInDown hero-heading" data-wow-delay=".6s">Multi-purpose Template</h1>
+                  <h5 class="animated fadeInUp wow hero-sub-heading" data-wow-delay=".8s">Ready to Use for Business, Agency, Startup, Portfolio Sites and More...</h5>
+                  <a href="javascript:void(0)" class="animated fadeInUp wow btn btn-common" data-wow-delay=".8s"><i class="material-icons mdi mdi-arrow-collapse-down"></i> Download Now</a>
+                </div>
+              </div>
+            {{-- End Main Carousel Section Start --}}
+
+
+
             <!--Grid column-->
             <div class="col-md-8 white-text text-center text-md-left mt-xl-5 mb-5" style="background-color:white;padding:20px; border-radius:25px" data-wow-delay="0.3s">
                 <h1 class="h1-responsive font-weight mt-sm-5">E-document </h1>
                 <h3>ระบบสารบัญเอกสาร มหาวิทยาลัยพะเยา</h3>
                 <hr class="hr-light">
-                <h6 class="mb-4">e-document เป็นระบบติดตามเอกสารทางราชการของมหาวิทยาลัยพะเยา ผ่านระบบ online ทั้งเอกสารภายใน และเอกสารภายนอก
+                <h6 class="mb-4 ">e-document เป็นระบบติดตามเอกสารทางราชการของมหาวิทยาลัยพะเยา ผ่านระบบ online ทั้งเอกสารภายใน และเอกสารภายนอก
                     นอกจากนี้ยังสามารถ ตรวจสอบประวัติของเอกสารที่เข้าสู่ระบบ e-document ทั้งหมดได้
                 </h6>
                 <button type="button" class="btn btn-light"> <i class="fas fa-address-card"></i> &nbsp; เกี่ยวกับเรา</button>

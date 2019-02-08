@@ -6,6 +6,11 @@
 
     <link href="https://unpkg.com/gijgo@1.9.11/css/gijgo.min.css" rel="stylesheet" type="text/css" />
 
+    <link rel="stylesheet" href="/css/home_css_pong.css">
+    <link rel="stylesheet" href="/css/animate.css">
+
+  
+
 
 {{--
     <!-- Bootstrap core JavaScript -->
@@ -21,3 +26,5 @@
     <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
 
     <script src="https://unpkg.com/gijgo@1.9.11/js/gijgo.min.js" type="text/javascript"></script>
+
+
