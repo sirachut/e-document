@@ -235,6 +235,7 @@
 
                                 <a class="btn btn-xs btn-success" href="{{ route('documents.show',$value->DOCUMENT_ID) }}">Show</a>
 
+
                                 <a class="btn btn-xs btn-info" href="{{ route('documents.edit',$value->DOCUMENT_ID) }}">Edit</a>
 
                                 @csrf
