@@ -49,19 +49,17 @@ class SentController extends Controller
            foreach ($document_item_id as $key => $val){
                //update date out
                 $item_id = explode("_",$val);
-//                dd($item_id);
            $item = Document_Item::findOrFail($item_id[0]);
 		$item->DATE_OUT = date("Y-m-d H:i:s") ;
                 $item->STATUS_ID = 1;
 		$item->save();
-                
-                
                 // add new item
                 
                 $department_id=$request->input('department_id');
                  $item = new Document_Item;
-                //ผู้อำนวยการ / ผู้บริหาร
-                if($department_id = 10){
+                // ถึง ผู้อำนวยการกอง / ผู้บริหาร
+//                 dd($department_id);
+                if($department_id == 10){
                 $item->DEPARTMENT_ID = $request->input('department_id');
                 $item->DATE_IN = date("Y-m-d H:i:s") ;
                 $item->STATUS_ID = 2;
@@ -79,8 +77,7 @@ class SentController extends Controller
 		
                 
            }
-		// redirect
-//		return redirect('sent')->with('message', 'เพิ่มเอกสารสำเร็จ!');
+
     }
     
            
