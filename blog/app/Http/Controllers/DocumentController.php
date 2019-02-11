@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Document;
+use App\Models\Document_Item;
 use App\Models\Faculty;
 
 
@@ -56,15 +57,18 @@ class DocumentController extends Controller
             'DOCUMENT_NOTATION',
         ]);
 
-        Document::create($request->all());
-
-		// store
-		// $document = new Document;
-        // $document->DOCUMENT_NUMBER = $request->input('DOCUMENT_NUMBER');
-		// $document->DOCUMENT_ST_NUMBER = $request->input('DOCUMENT_ST_NUMBER');
-		// $document->DOCUMENT_PRIORITY = $request->input('DOCUMENT_PRIORITY');
-		// $document->save();
-
+        $documents = Document::create($request->all());
+         $LastInsertId = $documents->DOCUMENT_ID;
+//dd($LastInsertId);
+		// insert frist document item
+             date_default_timezone_set("Asia/Bangkok");
+		 $Document_Item = new Document_Item;
+                 $Document_Item->STATUS_ID = 2;
+		 $Document_Item->DATE_IN = date("Y-m-d H:i:s") ;
+		 $Document_Item->DEPARTMENT_ID = 8;
+                 $Document_Item->ROUTE_NO = 1;
+                 $Document_Item->DOCUMENT_ID = $LastInsertId;
+		 $Document_Item->save();
 		// redirect
         return redirect()->route('documents.index')
                         ->with('success','เพิ่มข้อมูลสำเร็จ');
