@@ -8,17 +8,17 @@
 
     </head>
 
-    <style>
-        body{
-            font-family: 'Sarabun', sans-serif;
-        }
-    </style>
+<style>
+    body{
+        font-family: 'Sarabun', sans-serif;
+    }
+</style>
 
 <body>
 
     @include('layouts.navbar')
 
-    <div>
+    <div class="container">
         @yield('content')
     </div>
 

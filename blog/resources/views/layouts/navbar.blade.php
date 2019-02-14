@@ -94,7 +94,7 @@ foreach($list as $key => $rs){
                         );
                     }
                 }
-echo '<nav class="navbar navbar-expand-lg navbar-light bg-light navbar-custom fixed-top" >';
+echo '<nav class="navbar navbar-expand-lg navbar-light bg-light navbar-custom" >';
                 echo '<a class="navbar-icon" href="' . URL('') . '">' . '<img src="'. url('/images/UPLogo.png').  '"' . ' alt="" style="width: auto ; height: 35px;">' . '</a>';
 echo ' <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
