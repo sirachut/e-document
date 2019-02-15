@@ -74,7 +74,7 @@
                 $arr_menu_lv1 = array();
                 $arr_menu_lv2 = array();
 //                    while ($rs = $list->FetchRow()) {
-foreach($list as $key => $rs){
+                foreach($list as $key => $rs){
                     if ($rs['MOD_LEVEL'] == 0) {
                         $arr_menu_lv0[] = array(
                             'MOD_ID' => $rs['MOD_ID'],
