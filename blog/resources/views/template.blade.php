@@ -14,7 +14,7 @@
         }
     </style>
 
-<body>
+<body id="page-top">
  <div id="wrapper">
      
     @include('layouts2.navbar')

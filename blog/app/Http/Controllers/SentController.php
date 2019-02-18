@@ -22,8 +22,20 @@ class SentController extends Controller
         }else{
             $gid = session()->get('gid');
         }
-       
-//        dd($gid);
+            return View('sent.index')
+            ->with('get_gid', $gid);
+    }
+    
+       public function getdata($get_gid= null)
+    {
+        if($get_gid){
+             $gid = $get_gid;
+        }else{
+            $gid = session()->get('gid');
+        }
+            $request=$_REQUEST;
+//               print_r($request);
+//        dd($request);
             $Document_item = Vw_document_item::select('DOCUMENT_ID','DOCUMENT_ITEM_ID','FACULTY_ID','DOCUMENT_ST_NUMBER','DOCUMENT_NAME','DOCUMENT_NOTATION','DOCUMENT_NUMBER','DOCUMENT_TO')
                     ->distinct()
                     ->where('DEPARTMENT_ID', $gid)
@@ -31,11 +43,46 @@ class SentController extends Controller
                      ->orderBy('DATE_IN', 'desc')
                     ->orderBy('DOCUMENT_ID', 'desc')
                     ->get();
-//            dd($Document_item);
-            return View('sent.index')
-            ->with('Document', $Document_item)
-            ->with('get_gid', $gid);
+//            print_r($Document_item);
+            $i=1;
+            foreach($Document_item as $key => $value){
+                $data=array();
+                 $subdata[]= '<input type="checkbox" class="select_document" name="select_document[]" value="'.$value->DOCUMENT_ITEM_ID.'_'.$value->DOCUMENT_ID.'">';
+                 $subdata[]= $i++;
+                 $subdata[]= $value->FACULTY_ID;
+                 $subdata[]= $value->DOCUMENT_ST_NUMBER;
+                 $subdata[]= $value->DOCUMENT_NAME;
+                 $subdata[]= $value->DOCUMENT_NOTATION;
+                 $subdata[]= $value->DOCUMENT_NUMBER;
+                 $subdata[]= $value->DOCUMENT_TO;
+                 $subdata[]= '<a class="btn btn-xs btn-success" href="'. URL('documentitem/' . $value->DOCUMENT_ID) .'" target="_blank">Show</a>';
+                 $data[]=$subdata;
+                 $i++;
+            }
+            
+           
+//            $subdata=array();
+//                 $subdata[]= 1;
+//                 $subdata[]= 2;
+//                 $subdata[]= 3;
+//                 $subdata[]= 4;
+//                 $subdata[]= 5;
+//                 $subdata[]= 6;
+//                 $subdata[]= 7;
+//                 $subdata[]= 8;
+//                 $subdata[]= 9;
+//                 $data[]=$subdata;
+            
+            $json_data=array(
+    "draw"              =>  intval($request['draw']),
+    "recordsTotal"      =>  count($Document_item),
+    "recordsFiltered"   =>  count($Document_item),
+    "data"              =>  $data
+);
+             echo json_encode($json_data);
+
     }
+    
 
        public function add(Request $request)
     {
@@ -50,7 +97,6 @@ class SentController extends Controller
                 $item->STATUS_ID = 1;
 		$item->save();
                 // add new item
-                
                 $department_id=$request->input('department_id');
                  $item = new Document_Item;
                 // ถึง ผู้อำนวยการกอง / ผู้บริหาร
@@ -63,7 +109,7 @@ class SentController extends Controller
                 $item->DOCUMENT_ID = $item_id[1];
 		$item->save();
                 }
-                //ส่วนงานทั่วไป
+//                //ส่วนงานทั่วไป
                 else{
                 $item->DEPARTMENT_ID = $request->input('department_id');
 		$item->DETAIL = $request->input('DETAIL');
@@ -73,11 +119,15 @@ class SentController extends Controller
 		
                 
            }
+           
+            $response = array("error" => true);
+            echo json_encode($response);
 
     }
     
            public function add_control_code(Request $request)
     {
+          
            $gid= session()->get('gid');
            $document_item_id = Vw_document_item::select('DOCUMENT_ITEM_ID','DOCUMENT_ID')
                    ->where('DOCUMENT_NUMBER', $request->input('DOCUMENT_NUMBER'))
@@ -85,16 +135,14 @@ class SentController extends Controller
                     ->where('CKT', 'R')
                    ->get();
            date_default_timezone_set("Asia/Bangkok");
-            $result = true;
-            $error_text = "เอกสารนี้นำส่งแล้ว";
-            
+            $result = true;            
            foreach ($document_item_id as $key => $val){
                //update date out
-//                $item_id = $val->DOCUMENT_ITEM_ID;
-//                $item = Document_Item::findOrFail($item_id);
-//		$item->DATE_OUT = date("Y-m-d H:i:s") ;
-//                $item->STATUS_ID = 1;
-//		$item->save();
+                $item_id = $val->DOCUMENT_ITEM_ID;
+                $item = Document_Item::findOrFail($item_id);
+		$item->DATE_OUT = date("Y-m-d H:i:s") ;
+                $item->STATUS_ID = 1;
+		$item->save();
 //                dd($item);
                 // add new item
                 
@@ -103,29 +151,25 @@ class SentController extends Controller
                 // ถึง ผู้อำนวยการกอง / ผู้บริหาร
 //                 dd($department_id);
                 if($department_id == 10){
-//                $item->DEPARTMENT_ID = $request->input('department_id');
-//                $item->DATE_IN = date("Y-m-d H:i:s") ;
-//                $item->STATUS_ID = 2;
-//		$item->DETAIL = $request->input('DETAIL');
-//                $item->DOCUMENT_ID = $item_id[1];
+                $item->DEPARTMENT_ID = $request->input('department_id');
+                $item->DATE_IN = date("Y-m-d H:i:s") ;
+                $item->STATUS_ID = 2;
+		$item->DETAIL = $request->input('DETAIL');
+                $item->DOCUMENT_ID = $val->DOCUMENT_ID;
 //		$item->save();
                 }
                 //ส่วนงานทั่วไป
                 else{
-//                $item->DEPARTMENT_ID = $request->input('department_id');
-//		$item->DETAIL = $request->input('DETAIL');
-//                $item->DOCUMENT_ID = $val->DOCUMENT_ID;
-//		$item->save();
+                $item->DEPARTMENT_ID = $request->input('department_id');
+		$item->DETAIL = $request->input('DETAIL');
+                $item->DOCUMENT_ID = $val->DOCUMENT_ID;
+		$item->save();
                 }
-                
                  $result = false;
-                 $error_text = "บันทึกสำเร็จ";
-		
-                
            }
 
                
-             $response = array("error" => $result);
+            $response = array("error" => $result);
             echo json_encode($response);
     }
            

@@ -36,11 +36,12 @@ foreach($list as $key => $rs){
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-        <div class="sidebar-brand-icon rotate-n-15">
-          <i class="fas fa-laugh-wink"></i>
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{URL('')}}">
+        <div class="sidebar-brand-icon rotate-n-0">
+<!--          <i class="fas fa-laugh-wink"></i>-->
+            <img src="{{url('/images/UPLogo.png')}}" alt="" style="width: auto ; height: 35px;">
         </div>
-        <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+        <div class="sidebar-brand-text mx-3">ระบบงานเอกสาร</div>
       </a>
 
       <!-- Divider -->
@@ -50,7 +51,7 @@ foreach($list as $key => $rs){
       <li class="nav-item">
         <a class="nav-link" href="index.html">
           <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard</span></a>
+          <span>หน้าหลัก</span></a>
       </li>
 
       <!-- Divider -->
@@ -58,16 +59,16 @@ foreach($list as $key => $rs){
 
       <!-- Heading -->
       <div class="sidebar-heading">
-        Interface
+       Menus
       </div>
     <?php
                 foreach ($arr_menu_lv0 as $k0 => $v0) {
                     if (!isset($arr_menu_lv1[$v0['MOD_ID']])) {
-                        echo '<li class="nav-item"><a class="nav-link" href="' . URL('') . $v0['MOD_PAGE'] . '">' .'<i class="fas fa-fw fa-chart-area"></i><span>'. $v0['MOD_NAME'] . '</span></a></li>';
+                        echo '<li class="nav-item"><a class="nav-link" href="' . URL('') . $v0['MOD_PAGE'] . '">' .'<i class="fas fa-fw fa-table"></i><span>'. $v0['MOD_NAME'] . '</span></a></li>';
                     } else {
                         echo '<li class="nav-item">';
                         echo '<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                            <i class="fas fa-fw fa-cog"></i><span>' . $v0['MOD_NAME'] .'</span></a>';
+                            <i class="fas fa-fw fa-folder"></i><span>' . $v0['MOD_NAME'] .'</span></a>';
 
                         echo '<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">'
                         . '<div class="bg-white py-2 collapse-inner rounded">';
@@ -97,6 +98,9 @@ foreach($list as $key => $rs){
       </div>
     </ul>
     <!-- End of Sidebar -->
+    
+      <!-- Custom scripts for all pages-->
+
     
 <?php
 //

@@ -22,6 +22,8 @@ Route::resource('barcode', 'BarcodeController');
 
 Route::get('sent/{get_gid}', 'SentController@index');
 Route::get('sent', 'SentController@index');
+Route::get('sentlist', 'SentController@getdata');
+Route::get('sentlist/{get_gid}', 'SentController@getdata');
 Route::get('sentcontrolcode', 'SentController@index');
 Route::post('sent_item', 'SentController@add');
 Route::post('sentitemcontrolcode', 'SentController@add_control_code');
