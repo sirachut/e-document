@@ -1,25 +1,89 @@
-@extends('documents.app')
+@extends('template')
 
 @section('title', 'Table of Document')
 
 @section('content')
 
-
-
-
-<div class="table-responsive-lg table-hover container " style="margin-top: 70px">
     <div><?php 
 //    dd(Session::get('gid'));
     $gid= Session::get('gid');
     $gid = $gid['gid'];
 //    echo ($get_gid);
     if($gid == 10 || $get_gid == 10 ){
-        $url_sent_department= URL('/director');        
+        $url_sent_department= URL('/director');     
+        $url_sent_department_control_code= URL('/directorcontrolcode'); 
     }else{
         $url_sent_department= URL('/sent_item'); 
+        $url_sent_department_control_code= URL('/sentitemcontrolcode'); 
     }
     
     ?></div>
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Control Code ส่งเอกสารหน่วยงาน กบศ.</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+      
+
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <strong>Whoops!</strong> There were some problems with your input.<br><br>
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+ <form id="sent_control_code" action="{{ $url_sent_department_control_code }}" class="form-horizontal" >
+
+                @csrf
+                     <div class="form-row">
+                            <div>
+                                <span id="message_save"></span>
+                    
+                            </div>
+                     
+                        </div>
+               
+                        <div class="form-row">
+                            <div class="form-group col-md-7">
+                                    <label>หน่วยงาน กบศ.</label>
+                            {{ form_select_department()}}
+                            </div>
+                     
+                        </div>
+                     <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>หมายเหตุ</label>
+                                <input type="text" class="form-control" name="DETAIL" id="DOCUMENT_NUMBER">
+                            </div>
+                      
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>control code</label>
+                                <input type="text" class="form-control" name="DOCUMENT_NUMBER" id="DOCUMENT_NUMBER">
+                            </div>
+                      
+                        </div>
+                
+                <input type="submit" hidden="true"></button>
+                      </form>
+                         
+        </div>
+      
+      </div>
+    </div>
+  </div>
+<div class="table-responsive-lg table-hover container " style="margin-top: 70px">
+
 
  
     <form id="sent_department" action="{{ $url_sent_department }}" class="form-horizontal" >
@@ -51,6 +115,7 @@
 <label for="title" class="col-md-4 control-label"></label>
 <div class="col-md-6">
    <button type="submit" class="btn btn-primary btn-sm" id="btn_search">ส่งต่อ</button>
+   <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">ส่งต่อ(control code)</button>
 </div>
                     </form>
     <table class="table" id="table" style="width:100%">
@@ -191,6 +256,53 @@ window.location.replace("{{ URL('/sent') }}");
         }
 //             e.preventDefault();  // avoid to execute the actual submit of the form.
 });
+
+$("#sent_control_code select[id=department_id]").change(function(){
+       var department_id = $("#sent_control_code select[id=department_id]").val();
+       
+       if(department_id == 0){
+           $("#DOCUMENT_NUMBER").blur();
+       }else{
+        $("#DOCUMENT_NUMBER").focus();
+    }
+
+});
+
+$("#sent_control_code").submit(function(e) {
+    var form = $(this);
+    var url = form.attr('action');
+   var department_id = $("#sent_control_code select[id=department_id]").val();
+   var i=0;
+
+
+
+if(department_id == 0){
+ alert ('กรุณาเลือก หน่วยงานที่จะส่งต่อ');
+ e.preventDefault();  // avoid to execute the actual submit of the form.       
+}else{
+              $.ajax({
+           type: "POST",
+           url: url,
+           data: form.serialize(), // serializes the form's elements.
+           success: function(response, status, xhr)
+           {
+                var mes = response.error_text;
+                  if (response.error) {
+                $("#message_save").text("เอกสารนี้นำส่งแล้ว") ;
+                $("#message_save").attr('class', 'label warning');
+
+                } else {
+                    $("#message_save").text("บันทึกสำเร็จ");
+                     $("#message_save").attr('class', "label success");
+                }
+           }
+         });
+           
+}
+ e.preventDefault();  // avoid to execute the actual submit of the form.       
+
+});
+
   </script>
 
 

@@ -18,22 +18,7 @@
 			
 				
                         {{ csrf_field() }}
-                           
-<!--                            <label for="title" class="col-md-4 control-label">หน่วยงาน ที่รับ* : </label>
-                            <div class="col-md-6">
-                              {{ form_select_department()}}
-                          
-                            </div>
-                        </div>
-						
-                     
-                            <label for="title" class="col-md-4 control-label">รายละเอียด : </label>
 
-                            <div class="col-md-6">
-                                <input id="DETAIL" type="text" class="form-control" name="DETAIL"  required autofocus>
-         
-                            </div>
-                        </div>-->
 <input type="hidden" id="hidden_document_item_id" name="hidden_document_item_id" value="">
 
    <button type="submit" class="btn btn-primary btn-sm" id="btn_search">
@@ -143,7 +128,7 @@ $("#receive_item").submit(function(e) {
            success: function(data)
            {
 //               alert(data); // show response from the php script.
-window.location.replace("{{ URL('/receive') }}");
+//window.location.replace("{{ URL('/receive') }}");
            }
          });
            }else{

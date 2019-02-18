@@ -20,7 +20,7 @@ function form_select_department()
                     ->get();
 //        dd($Department);
    $html="";
-   $html .="<select name='department_id' class='form-control'>";
+   $html .="<select id='department_id' name='department_id' class='form-control'>";
     $html .="<option value='".'0'."'>".'กรุณาเลือกข้อมูล'."</option>";
     foreach ($Department as $key => $val){
         $html .="<option value='".$val['DEPARTMENT_ID']."'>".$val['DEPARTMENT_NAME']."</option>";
