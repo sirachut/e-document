@@ -22,7 +22,7 @@ class SentController extends Controller
         }else{
             $gid = session()->get('gid');
         }
-       
+
 //        dd($gid);
             $Document_item = Vw_document_item::select('DOCUMENT_ID','DOCUMENT_ITEM_ID','FACULTY_ID','DOCUMENT_ST_NUMBER','DOCUMENT_NAME','DOCUMENT_NOTATION','DOCUMENT_NUMBER','DOCUMENT_TO')
                     ->distinct()
@@ -32,17 +32,17 @@ class SentController extends Controller
                     ->orderBy('DOCUMENT_ID', 'desc')
                     ->get();
 //            dd($Document_item);
-            return View('sent.index')
-            ->with('Document', $Document_item)
-            ->with('get_gid', $gid);
-        
+                    return View('sent.index')
+                    ->with('Document', $Document_item)
+                    ->with('get_gid', $gid);
+
 //         $this->layout->content = View('list')->with('Document', $Document);
     }
 
        public function add(Request $request)
     {
-     
-	
+
+
            $document_item_id = explode(",",$request->input('hidden_document_item_id'));
            date_default_timezone_set("Asia/Bangkok");
 //           dd($document_item_id);
@@ -54,7 +54,7 @@ class SentController extends Controller
                 $item->STATUS_ID = 1;
 		$item->save();
                 // add new item
-                
+
                 $department_id=$request->input('department_id');
                  $item = new Document_Item;
                 // ถึง ผู้อำนวยการกอง / ผู้บริหาร
@@ -74,17 +74,17 @@ class SentController extends Controller
                 $item->DOCUMENT_ID = $item_id[1];
 		$item->save();
                 }
-		
-                
+
+
            }
 
     }
-    
-           
+
+
          public function director(Request $request)  // ผอ. ลงนามเสร็จ
     {
-     
-	
+
+
            $document_item_id = explode(",",$request->input('hidden_document_item_id'));
            date_default_timezone_set("Asia/Bangkok");
 //           dd($document_item_id);
@@ -96,8 +96,8 @@ class SentController extends Controller
 		$item->DATE_OUT = date("Y-m-d H:i:s") ;
                 $item->STATUS_ID = 1;
 		$item->save();
-                
-                
+
+
                 // add new item
                 //ธุระการ
                 $department_id=8;
@@ -112,5 +112,5 @@ class SentController extends Controller
 		// redirect
 //		return redirect('sent')->with('message', 'เพิ่มเอกสารสำเร็จ!');
     }
-    
+
 }

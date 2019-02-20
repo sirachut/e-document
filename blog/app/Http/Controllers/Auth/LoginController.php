@@ -53,35 +53,35 @@ protected function checkLdap($username, $pass) {
     ldap_set_option($ldap, LDAP_OPT_REFERRALS, 0);
     $bind = @ldap_bind($ldap,$username.$account_suffix,$pass);
 //    dd($pass);
-      if ($bind) {
+    if ($bind) {
 //          dd('login func ldap pass' );
-        $filter="(sAMAccountName=$username)";
-        $result = ldap_search($ldap,"dc=up,dc=local",$filter) or die();
+    $filter="(sAMAccountName=$username)";
+    $result = ldap_search($ldap,"dc=up,dc=local",$filter) or die();
 //        ldap_sort($ldap,$result,"sn");
-        $info = ldap_get_entries($ldap, $result);
-    //    dd($info);
-$user = $info[0]['samaccountname'][0];
-$user_data['USERNAME'] = $user;
-$extensionattribute6 = strtoupper($info[0]['extensionattribute6'][0]);
+    $info = ldap_get_entries($ldap, $result);
+//    dd($info);
+    $user = $info[0]['samaccountname'][0];
+    $user_data['USERNAME'] = $user;
+    $extensionattribute6 = strtoupper($info[0]['extensionattribute6'][0]);
             if($extensionattribute6 == 'STAFF' || $extensionattribute6 =='TEACHER' || $extensionattribute6 =='STUDENT') {
-                        $sys_user = $this->checkSys_user($user_data['USERNAME']);
-                        if($sys_user){
-                            return $sys_user;
-                        }
-                        else{
-                            return false;
-                        }
+                $sys_user = $this->checkSys_user($user_data['USERNAME']);
+                if($sys_user){
+                    return $sys_user;
+                }
+                else{
+                    return false;
+                }
 
             }
     }
     else if($username == 'edoctest' ){
          $sys_user = $this->checkSys_user($username);
-                        if($sys_user){
-                            return $sys_user;
-                        }
-                        else{
-                            return false;
-                        }
+            if($sys_user){
+                return $sys_user;
+            }
+            else{
+                return false;
+            }
     }
     else {
         return false;

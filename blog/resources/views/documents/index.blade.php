@@ -4,11 +4,14 @@
 
 @section('content')
 
+{{-- @include('documents.tabbar') --}}
+
 @if ($message = Session::get('success'))
-        <div class="alert alert-success">
-            <p>{{ $message }}</p>
-        </div>
+    <div class="alert alert-success">
+        <p>{{ $message }}</p>
+    </div>
 @endif
+
 
 <div class="table-responsive-lg table-hover container " style="margin-top: 70px;padding-bottom:100px">
 
@@ -18,9 +21,7 @@
         </div>
 
         <div>
-
             @include('documents.create')
-
         </div>
     </div>
 

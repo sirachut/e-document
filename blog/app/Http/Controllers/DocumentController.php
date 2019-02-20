@@ -15,19 +15,23 @@ class DocumentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    {   
 
         // $Document = Document::where('RECORD_STATUS', 'N')
         //              ->orderBy('DATE_IN', 'desc')
         //             ->get();
 
         // $Faculty = Faculty::all()->sortByDesc('LAST_DATE');
-        $documents = Document::where('RECORD_STATUS', 'N') ->orderBy('DATE_IN', 'desc')->get();
+        $documents = Document::where('RECORD_STATUS', 'N')
+            ->where('DOCUMENT_NAME','asd')
+            ->orderBy('DATE_IN', 'desc')
+            ->get();
+
         $Faculty = Faculty::all()->sortByDesc('LASTE_DATE');
         return View('documents.index')
             ->with('documents', $documents)
             ->with('Faculty',$Faculty);
-        
+
 //                    $Document = Document::where('RECORD_STATUS', 'N')
 //                     ->orderBy('DATE_IN', 'desc')
 //                    ->get();

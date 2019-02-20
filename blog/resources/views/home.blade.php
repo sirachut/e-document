@@ -3,14 +3,13 @@
 @section('content')
 
 <style>
-      .flex-center {
-            align-items: center;
-            display: flex;
-            justify-content: center;
-            padding: 60px;
-        }
+    .flex-center {
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        padding: 60px;
+    }
 </style>
-
 
 @php
     use App\Models\Sys_Department;
@@ -29,7 +28,8 @@
         <button type="button" class="btn btn-light"> <i class="fas fa-address-card"></i> &nbsp; เกี่ยวกับเรา</button>
         <button type="button" class="btn btn-link"> <i class="fab fa-leanpub"></i>&nbsp; วิธีการใช้งาน</button>
     </div>
-        @if (!$userdata['logged_in'])
+
+    @if (!$userdata['logged_in'])
 
     <div class="col-sm-5">
 

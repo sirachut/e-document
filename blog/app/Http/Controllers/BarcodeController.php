@@ -19,7 +19,7 @@ class BarcodeController extends Controller
                     $Barcode = Barcode::where('RECORD_STATUS', 'N')
                     ->orderBy('CREATE_DATE', 'desc')
                     ->get();
-         
+
               $Data['Barcode']= $Barcode;
         return View('barcode.list')
             ->with('Data', $Data);
@@ -32,11 +32,11 @@ class BarcodeController extends Controller
         $num_from = $Max_to +1;
         $num_to = $num_from + $amount;
         $Barcode = new Barcode;
-                $Barcode->NUM_FROM = $num_from ;
+        $Barcode->NUM_FROM = $num_from ;
 		$Barcode->NUM_TO = $num_to;
 		$Barcode->save();
 return redirect('barcode');
-        
+
     }
 
     public function store(Request $request)
@@ -99,7 +99,7 @@ $barcode = Barcode::findOrFail($id);
           $from++;
           PDF::write1DBarcode($txt.$from, 'C128', $col3, $row, '', 18, 0.4, $style, 'N');
           $from++;
-          PDF::write1DBarcode($txt.$from, 'C128', $col4, $row, '', 18, 0.4, $style, 'N');  
+          PDF::write1DBarcode($txt.$from, 'C128', $col4, $row, '', 18, 0.4, $style, 'N');
           $from++;
           $row=$row+18;
           $i++;
@@ -150,7 +150,7 @@ $Barcode = Barcode::findOrFail($id);
       	$Barcode = Barcode::findOrFail($id);
 		$Barcode->RECORD_STATUS = 'D';
 		$Barcode->save();
- 
+
 //		// redirect
 		return redirect('barcode')->with('message', 'ลบข้อมูลสำเร็จ!');
     }
