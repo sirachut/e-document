@@ -66,10 +66,10 @@ class SentController extends Controller
                  $subdata[]= $i;
                  $subdata[]= $value->FACULTY_ID;
                  $subdata[]= $value->DOCUMENT_ST_NUMBER;
-                 $subdata[]= $value->DOCUMENT_NAME;
                  $subdata[]= $value->DOCUMENT_NOTATION;
-                 $subdata[]= $value->DOCUMENT_NUMBER;
+                 $subdata[]= $value->DOCUMENT_NAME;
                  $subdata[]= $value->DOCUMENT_TO;
+                 $subdata[]= $value->DOCUMENT_NUMBER;
                  $subdata[]= '<a class="btn btn-xs btn-success" href="'. URL('documentitem/' . $value->DOCUMENT_ID) .'" target="_blank">Show</a>';
                  $data[]=$subdata;
             $i++;

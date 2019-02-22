@@ -154,9 +154,57 @@
       </div>
     </div>
   </div>
-    
-        
+
+     
 <div class="container-fluid">
+    <div class="card shadow mb-4">
+                <!-- Card Header - Accordion -->
+                <a href="#collapseCardExample" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
+                  <h6 class="m-0 font-weight-bold text-primary">ค้นหาข้อมูล</h6>
+                </a>
+                <!-- Card Content - Collapse -->
+                <div class="collapse show" id="collapseCardExample" style="">
+                  <div class="card-body">
+                          <form id="form_search" onsubmit="return false">
+            <table width="100%" border="0"  class="table_top">
+                <tr>
+                    <td width="15%" class="caption" > <div class="float-right">คณะ : </div></td>
+                    <td width="35%"><div class="col-md-6 float-left"> {{form_select_faculty()}}  </div> </td>
+
+                    <td width="15%" class="caption"><div class="float-right">เลขที่ ศธ. :</div> </td>
+                    <td width="35%" ><div class="col-md-6 float-left"> <input id="DOCUMENT_ST_NUMBER" type="text" class="form-control" name="DOCUMENT_ST_NUMBER">  </div>  </td>
+                </tr>
+
+                      <tr>
+                    <td width="15%" class="caption" > <div class="float-right">{{ Lang::get('master.DOCUMENT_NOTATION.LABEL') }} :</div></td>
+                    <td width="35%"><div class="col-md-6 float-left"> {{form_select_document_notation()}}  </div> </td>
+
+                    <td width="15%" class="caption"><div class="float-right">เรื่อง :</div> </td>
+                    <td width="35%" ><div class="col-md-6 float-left"> <input id="DOCUMENT_NAME" type="text" class="form-control" name="DOCUMENT_NAME">  </div>  </td>
+                </tr>
+                
+                          <tr>
+                    <td width="15%" class="caption" > <div class="float-right">{{ Lang::get('master.DOCUMENT_TO.LABEL') }} : </div></td>
+                    <td width="35%"><div class="col-md-6 float-left"> {{form_select_document_to()}}  </div> </td>
+
+                    <td width="15%" class="caption"><div class="float-right">control code :</div> </td>
+                    <td width="35%" ><div class="col-md-6 float-left"> <input id="DOCUMENT_NUMBER" type="text" class="form-control" name="DOCUMENT_NUMBER">  </div>  </td>
+                </tr>
+
+
+                <tr>
+                    <td></td>
+                    <td class="" colspan="3" height="40">
+                        <button type="submit" class="btn btn-primary btn-sm" id="btn_search"><span class="glyphicon glyphicon-search"></span> <strong>ค้นหา</strong></button>
+                        <button type="reset" class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-remove"></span> <strong>ยกเลิก</strong></button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+                  </div>
+                </div>
+              </div>
+    
  <div class="card shadow mb-4">
     <div class="card-body">
 
@@ -175,10 +223,11 @@
             <th>ลำดับ</th>
             <th>คณะ/หน่วยงาน</th>
             <th>เลขที่ ศธ.</th>
+            <th>ประเภทเอกสาร</th>
             <th>เรื่อง</th>
-             <th>notation</th>
-            <th>เลขที่รับส่ง</th>
+             
             <th>เรียน</th>
+            <th>control code</th>
             <th>รายละเอียด</th>
           </tr>
         </thead>
@@ -196,6 +245,19 @@
     
   $(document).ready(function() {
    var table = $('#table').DataTable({searching: false,
+       "columnDefs": [
+    {"targets": 0, "width": "2.5%",   "className": "text-center", },
+    {"targets": 1, "width": "2.5%",   "className": "text-center", },
+    {"targets": 2, "width": "15%",   "className": "text-center", },
+    {"targets": 3, "width": "10%",   "className": "text-center", },
+    {"targets": 4, "width": "5%",   "className": "text-center", },
+    {"targets": 5, "width": "40%",   "className": "text-center", },
+    {"targets": 6, "width": "10%",   "className": "text-center", },
+    {"targets": 7, "width": "10%",   "className": "text-center", },
+    {"targets": 8, "width": "5%",   "className": "text-center", },
+  ],
+
+
        "ordering": false,
        info: true,
       "dom": '<"top">rt<"bottom"lip><"clear">',
