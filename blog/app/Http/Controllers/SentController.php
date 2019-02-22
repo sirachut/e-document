@@ -34,8 +34,10 @@ class SentController extends Controller
             $gid = session()->get('gid');
         }
             $request=$_REQUEST;
-//               print_r($request);
+//        print_r($request);
 //        dd($request);
+//        
+//          select  all
             $Document_item = Vw_document_item::select('DOCUMENT_ID','DOCUMENT_ITEM_ID','FACULTY_ID','DOCUMENT_ST_NUMBER','DOCUMENT_NAME','DOCUMENT_NOTATION','DOCUMENT_NUMBER','DOCUMENT_TO')
                     ->distinct()
                     ->where('DEPARTMENT_ID', $gid)
@@ -43,12 +45,25 @@ class SentController extends Controller
                      ->orderBy('DATE_IN', 'desc')
                     ->orderBy('DOCUMENT_ID', 'desc')
                     ->get();
+            
+            
+            $Document_item_order = Vw_document_item::select('DOCUMENT_ID','DOCUMENT_ITEM_ID','FACULTY_ID','DOCUMENT_ST_NUMBER','DOCUMENT_NAME','DOCUMENT_NOTATION','DOCUMENT_NUMBER','DOCUMENT_TO')
+                    ->distinct()
+                    ->where('DEPARTMENT_ID', $gid)
+                    ->where('CKT', 'R')
+                     ->orderBy('DATE_IN', 'desc')
+                    ->orderBy('DOCUMENT_ID', 'desc')
+                    ->offset($request['start'])
+                    ->limit($request['length'])
+                    ->get();
 //            print_r($Document_item);
             $i=1;
-            foreach($Document_item as $key => $value){
-                $data=array();
+            $data=array();
+            foreach($Document_item_order as $key => $value){
+                
+                $subdata=array();
                  $subdata[]= '<input type="checkbox" class="select_document" name="select_document[]" value="'.$value->DOCUMENT_ITEM_ID.'_'.$value->DOCUMENT_ID.'">';
-                 $subdata[]= $i++;
+                 $subdata[]= $i;
                  $subdata[]= $value->FACULTY_ID;
                  $subdata[]= $value->DOCUMENT_ST_NUMBER;
                  $subdata[]= $value->DOCUMENT_NAME;
@@ -57,26 +72,16 @@ class SentController extends Controller
                  $subdata[]= $value->DOCUMENT_TO;
                  $subdata[]= '<a class="btn btn-xs btn-success" href="'. URL('documentitem/' . $value->DOCUMENT_ID) .'" target="_blank">Show</a>';
                  $data[]=$subdata;
-                 $i++;
+            $i++;
             }
-            
-           
-//            $subdata=array();
-//                 $subdata[]= 1;
-//                 $subdata[]= 2;
-//                 $subdata[]= 3;
-//                 $subdata[]= 4;
-//                 $subdata[]= 5;
-//                 $subdata[]= 6;
-//                 $subdata[]= 7;
-//                 $subdata[]= 8;
-//                 $subdata[]= 9;
-//                 $data[]=$subdata;
-            
+
+            $num_row=count($Document_item);
+            $num_row_order=count($Document_item_order);
+//            print_r($num_row);
             $json_data=array(
     "draw"              =>  intval($request['draw']),
-    "recordsTotal"      =>  count($Document_item),
-    "recordsFiltered"   =>  count($Document_item),
+    "recordsTotal"      =>  intval($num_row_order),
+    "recordsFiltered"   =>  intval($num_row),
     "data"              =>  $data
 );
              echo json_encode($json_data);

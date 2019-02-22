@@ -154,23 +154,24 @@
       </div>
     </div>
   </div>
-<div class="table-responsive-lg table-hover container " style="margin-top: 70px">
+    
+        
+<div class="container-fluid">
+ <div class="card shadow mb-4">
+    <div class="card-body">
 
-
- 
-
-    <div id="toolbar">
-          เลือกรายการ </br>
+                       <div class="table-responsive">
+                                <div class="card-header py-3"> <h6 class="m-0 font-weight-bold text-primary">รายการนำส่ง</h6></div>
+     <div class="card-header py-3" id="toolbar">
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#sentlistModal">ส่งต่อ(รายการที่เลือก)</button>
 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">ส่งต่อ(control code)</button>
-
 </div>
-    <table class="table" id="table" data-toolbar="#toolbar" style="width:100%">
+    <table class="table table-bordered" id="table" width="100%" cellspacing="0">
 
     
         <thead>
           <tr >
-              <th>เลือก</th>
+            <th>เลือก</th>
             <th>ลำดับ</th>
             <th>คณะ/หน่วยงาน</th>
             <th>เลขที่ ศธ.</th>
@@ -183,13 +184,21 @@
         </thead>
 
       </table>
+                
+              </div>
+            </div>
+
+     
+ 
+    </div>
   </div>
 <script>
     
   $(document).ready(function() {
    var table = $('#table').DataTable({searching: false,
-       info: false,
-      "dom": '<"top"i>rt<"bottom"lp><"clear">',
+       "ordering": false,
+       info: true,
+      "dom": '<"top">rt<"bottom"lip><"clear">',
     "processing": true,
     "serverSide":true,
                 "ajax":{
