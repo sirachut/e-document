@@ -9,6 +9,54 @@
         justify-content: center;
         padding: 60px;
     }
+    html, body {
+                background-color: #fff;
+                color: #636b6f;
+                font-family: 'Sarabun', sans-serif;
+                font-weight: 200;
+                height: 100vh;
+                margin: 0;
+            }
+            .full-height {
+                height: 100vh;
+            }
+            .flex-center {
+                align-items: center;
+                display: flex;
+                justify-content: center;
+            }
+            .position-ref {
+                position: relative;
+            }
+            .top-right {
+                position: absolute;
+                right: 10px;
+                top: 18px;
+            }
+/*
+            .content {
+                text-align: center;
+            } */
+            .title {
+                font-size: 84px;
+            }
+            .links > a {
+                color: #636b6f;
+                padding: 0 25px;
+                font-size: 13px;
+                font-weight: 600;
+                letter-spacing: .1rem;
+                text-decoration: none;
+                text-transform: uppercase;
+            }
+            .m-b-md {
+                margin-bottom: 30px;
+            }
+            .logogendoc{
+                max-width: 100%;
+                height: auto;
+                padding-bottom: 20px;
+            }
 </style>
 
 @php
@@ -17,8 +65,8 @@
     // print_r($userdata);
 @endphp
 
-<div class="row align-items-center flex-center">
-    <div class="col-sm-7 wow animated fadeInRight">
+<div class="row align-items-center flex-center height" style="padding:30% 0px 25px 0px;"
+    <div class="col-sm-7 wow animated fadeInRight height">
         <h1 class="h1-responsive font-weight ">E-document </h1>
         <h3>ระบบสารบัญเอกสาร มหาวิทยาลัยพะเยา</h3>
 
