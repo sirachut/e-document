@@ -12,11 +12,11 @@
  
     ?></div>
   <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="sentlistModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Control Code เสร็จสิ้นรายการ</h5>
+          <h5 class="modal-title" id="exampleModalLabel">เพิ่มรายการ</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -34,7 +34,7 @@
                     </ul>
                 </div>
             @endif
- <form autocomplete="off" id="sent_control_code" action="#" class="form-horizontal" enctype="multipart/form-data" >
+ <form autocomplete="off" id="sent_control_code" action="#"  enctype="multipart/form-data" >
 
                 @csrf
                      <div class="form-row">
@@ -48,34 +48,44 @@
                      
                         </div>
               
+     <table width="100%" border="0"  class="table_top">
+                <tr>
+                    <td width="15%" class="caption" > <div class="float-right">คณะ : </div></td>
+                    <td ><div style="max-width: 100%;" class="col-md-6 float-left"> {{form_select_faculty()}}  </div> </td>
+
+                    <td width="15%" class="caption"><div class="float-right">โทร :</div> </td>
+                    <td width="35%" ><div style="max-width: 100%;" class="col-md-6 float-left"> <input id="FACULTY_TEL" type="text" class="form-control" name="FACULTY_TEL">  </div>  </td>
+                </tr>
+
+                      <tr>
+                    <td width="15%" class="caption" > <div class="float-right">เลขที่ ศธ :</div></td>
+                    <td width="35%"><div style="max-width: 100%;" class="col-md-6 float-left"> <input id="DOCUMENT_ST_NUMBER" type="text" class="form-control" name="DOCUMENT_ST_NUMBER">  </div> </td>
+
+                    <td width="15%" class="caption"><div class="float-right">ลงวันที่ :</div> </td>
+                    <td width="35%" ><div style="max-width: 100%;" class="col-md-6 float-left"> <input id="DOCUMENT_DATE" type="text" class="form-control" name="DOCUMENT_DATE">  </div>  </td>
+                </tr>
                 
-                
-                
-                     <div class="form-row">
-      
-                            <div class="form-group col-md-6">
-                                <label>อัพโหลดไฟล์</label>
-                              <input type="file" name="image" class="form-control">
-                            </div>
-                      
-                        </div>
-                   
-                     <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label>หมายเหตุ</label>
-                                <input type="text" class="form-control" name="DETAIL" id="DOCUMENT_NUMBER">
-                            </div>
-                      
-                        </div>
-              
-                
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label>control code</label>
-                                <input type="number" class="form-control" name="DOCUMENT_NUMBER" id="DOCUMENT_NUMBER">
-                            </div>
-                      
-                        </div>
+                          <tr>
+                    <td width="15%" class="caption" > <div class="float-right">เรื่อง : </div></td>
+                    <td colspan="3"><div style="max-width: 100%;" class="col-md-6 float-left"> <input  id="DOCUMENT_DATE" type="text" class="form-control" name="DOCUMENT_DATE">  </div> </td>
+
+                      </div>  </td>
+                </tr>
+             
+                          <tr>
+                    <td width="15%" class="caption" > <div class="float-right">เรียน : </div></td>
+                    <td width="35%"><div style="max-width: 100%;" class="col-md-6 float-left"> {{form_select_document_to()}}  </div> </td>
+
+                    <td width="15%" class="caption"><div class="float-right">control code  :</div> </td>
+                    <td width="35%" ><div style="max-width: 100%;" class="col-md-6 float-left"> <input id="DOCUMENT_NUMBER" type="text" class="form-control"  name="DOCUMENT_NUMBER">  </div>  </td>
+                </tr>
+
+
+                <tr>
+                    
+
+                </tr>
+            </table>
                 <input type="hidden" id="gid" name="gid" value="{{$gid}}">
                 
                 <input type="submit" hidden="true"></button>
@@ -96,10 +106,9 @@
     <div class="card-body">
 
                        <div class="table-responsive">
-                                <div class="card-header py-3"> <h6 class="m-0 font-weight-bold text-primary">เสร็จสิ้นรายการ</h6></div>
+                                <div class="card-header py-3"> <h6 class="m-0 font-weight-bold text-primary">รายการเอกสาร</h6></div>
      <div class="card-header py-3" id="toolbar">
-<button  id="btnsent" type="button" class="btn btn-primary" data-toggle="modal" data-target="#sentlistModal">เสร็จสิ้น(รายการที่เลือก)</button>
-<button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">เสร็จสิ้น(control code)</button>
+<button  id="btnsent" type="button" class="btn btn-primary" data-toggle="modal" data-target="#sentlistModal">เพิ่มรายการ</button>
 </div>
     <table class="table table-bordered" id="table" width="100%" cellspacing="0">
 
