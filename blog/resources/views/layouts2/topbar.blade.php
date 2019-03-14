@@ -1,6 +1,7 @@
  <?php
 $userdata = Session::get('userdata');
-//dd($userdata);
+$gid=Session::get('gid');
+//dd($gid);
       ?>
 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
           <!-- Sidebar Toggle (Topbar) -->
@@ -8,16 +9,26 @@ $userdata = Session::get('userdata');
             <i class="fa fa-bars"></i>
           </button>
 
+    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+            <div class="input-group">
+                
+         <h6 class="m-0 font-weight-bold text-primary">
+<?php echo (isset($navi_menu)) ? $navi_menu : ''; ?>
+</h6>
 
+            </div>
+          </form>
 
           <!-- Topbar Navbar -->
           <ul class="navbar-nav ml-auto">
             <div class="topbar-divider d-none d-sm-block"></div>
 
+        
+            
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{$userdata['username']}}</span>
+                  <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{$userdata['username']}} </br>{{ get_department($gid['gid']) }}</span>
                 <img class="img-profile rounded-circle" src="{{url('/images/personlogin.png')}}">
               </a>
               <!-- Dropdown - User Information -->

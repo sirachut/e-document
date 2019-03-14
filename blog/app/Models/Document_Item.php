@@ -18,7 +18,7 @@ class Document_Item extends Model
     protected $table = 'document_item';
     protected $fillable = [
        'STATUS_ID', 'DATE_IN', 'DEPARTMENT_ID', 'RECORD_STATUS','CREATE_USER','LAST_DATE','LAST_USER','DATE_OUT','ROUTE_NO','DETAIL',
-        'DOCUMENT_ID',
+        'DOCUMENT_ID','RECEIVE_USER','SENT_USER',
     ];
 
 

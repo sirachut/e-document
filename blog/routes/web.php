@@ -17,6 +17,7 @@ Route::get('/', ['as'=>'list','uses'=>'DocumentController@index']);
 
 Route::resource('user', 'UserController');
 Route::resource('documents', 'DocumentController');
+Route::get('documentslist', 'DocumentController@getdata');
 Route::resource('barcode', 'BarcodeController');
 // Route::resource('faculty', 'FacultyController');
 
@@ -30,15 +31,23 @@ Route::post('sentitemcontrolcode', 'SentController@add_control_code');
 //Route::post('sentitemcontrolcode', 'SentController@add_control_code')->name('Sent.add_control_code');
 //Route::put('/sentitemcontrolcode', 'SentController@add_control_code')->name('Sent.add_control_code');
 Route::post('director', 'SentController@director');
+Route::post('directorcontrolcode', 'SentController@director_control_code');
 Route::get('receive', 'ReceiveController@index');
+Route::get('receivelist', 'ReceiveController@getdata');
 Route::post('receive_item', 'ReceiveController@add');
+Route::post('receiveitemcontrolcode', 'ReceiveController@add_control_code');
 
 Route::get('done', 'DoneController@index');
 Route::post('done', 'DoneController@done');
+Route::post('doneitemcontrolcode', 'DoneController@done_control_code');
 //Route::post('director', 'SentController@director');
 
 Route::get('documentitem/{get_id}', 'DocumentItemController@index');
+Route::get('attachmentlist/{id}', 'DocumentAttachmentController@getdata');
+Route::get('attachmentdownload/{filename}', 'DocumentAttachmentController@download');
 
+Route::get('/example/create', 'ExampleController@create');
+Route::post('/example', 'ExampleController@store');
 
 Route::get('/pdf', ['as'=>'PdfDemo','uses'=>'PdfDemoController@index']);
 Route::get('/sample-pdf', ['as'=>'SamplePDF','uses'=>'PdfDemoController@samplePDF']);

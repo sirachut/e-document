@@ -24,6 +24,7 @@
 /*jslint evil: true, undef: true, browser: true */
 /*globals $,require,jQuery,define,_selector_run,_selector_opts,_selector_first,_selector_row_indexes,_ext,_Api,_api_register,_api_registerPlural,_re_new_lines,_re_html,_re_formatted_numeric,_re_escape_regex,_empty,_intVal,_numToDecimal,_isNumber,_isHtml,_htmlNumeric,_pluck,_pluck_order,_range,_stripHtml,_unique,_fnBuildAjax,_fnAjaxUpdate,_fnAjaxParameters,_fnAjaxUpdateDraw,_fnAjaxDataSrc,_fnAddColumn,_fnColumnOptions,_fnAdjustColumnSizing,_fnVisibleToColumnIndex,_fnColumnIndexToVisible,_fnVisbleColumns,_fnGetColumns,_fnColumnTypes,_fnApplyColumnDefs,_fnHungarianMap,_fnCamelToHungarian,_fnLanguageCompat,_fnBrowserDetect,_fnAddData,_fnAddTr,_fnNodeToDataIndex,_fnNodeToColumnIndex,_fnGetCellData,_fnSetCellData,_fnSplitObjNotation,_fnGetObjectDataFn,_fnSetObjectDataFn,_fnGetDataMaster,_fnClearTable,_fnDeleteIndex,_fnInvalidate,_fnGetRowElements,_fnCreateTr,_fnBuildHead,_fnDrawHead,_fnDraw,_fnReDraw,_fnAddOptionsHtml,_fnDetectHeader,_fnGetUniqueThs,_fnFeatureHtmlFilter,_fnFilterComplete,_fnFilterCustom,_fnFilterColumn,_fnFilter,_fnFilterCreateSearch,_fnEscapeRegex,_fnFilterData,_fnFeatureHtmlInfo,_fnUpdateInfo,_fnInfoMacros,_fnInitialise,_fnInitComplete,_fnLengthChange,_fnFeatureHtmlLength,_fnFeatureHtmlPaginate,_fnPageChange,_fnFeatureHtmlProcessing,_fnProcessingDisplay,_fnFeatureHtmlTable,_fnScrollDraw,_fnApplyToChildren,_fnCalculateColumnWidths,_fnThrottle,_fnConvertToWidth,_fnGetWidestNode,_fnGetMaxLenString,_fnStringToCss,_fnSortFlatten,_fnSort,_fnSortAria,_fnSortListener,_fnSortAttachListener,_fnSortingClasses,_fnSortData,_fnSaveState,_fnLoadState,_fnSettingsFromNode,_fnLog,_fnMap,_fnBindAction,_fnCallbackReg,_fnCallbackFire,_fnLengthOverflow,_fnRenderer,_fnDataSource,_fnRowAttributes*/
 
+(/** @lends <global> */function( window, document, undefined ) {
 (function( factory ) {
 	"use strict";
 
@@ -15294,3 +15295,74 @@
 
 	return $.fn.dataTable;
 }));
+}(window, document));
+
+
+jQuery.fn.dataTableExt.oApi.fnReloadAjax = function ( oSettings, sNewSource, fnCallback, bStandingRedraw )
+{
+    // DataTables 1.10 compatibility - if 1.10 then `versionCheck` exists.
+    // 1.10's API has ajax reloading built in, so we use those abilities
+    // directly.
+    alert('ajreload');
+    if ( jQuery.fn.dataTable.versionCheck ) {
+        var api = new jQuery.fn.dataTable.Api( oSettings );
+ 
+        if ( sNewSource ) {
+            api.ajax.url( sNewSource ).load( fnCallback, !bStandingRedraw );
+        }
+        else {
+            api.ajax.reload( fnCallback, !bStandingRedraw );
+        }
+        return;
+    }
+ 
+    if ( sNewSource !== undefined && sNewSource !== null ) {
+        oSettings.sAjaxSource = sNewSource;
+    }
+ 
+    // Server-side processing should just call fnDraw
+    if ( oSettings.oFeatures.bServerSide ) {
+        this.fnDraw();
+        return;
+    }
+ 
+    this.oApi._fnProcessingDisplay( oSettings, true );
+    var that = this;
+    var iStart = oSettings._iDisplayStart;
+    var aData = [];
+ 
+    this.oApi._fnServerParams( oSettings, aData );
+ 
+    oSettings.fnServerData.call( oSettings.oInstance, oSettings.sAjaxSource, aData, function(json) {
+        /* Clear the old information from the table */
+        that.oApi._fnClearTable( oSettings );
+ 
+        /* Got the data - add it to the table */
+        var aData =  (oSettings.sAjaxDataProp !== "") ?
+            that.oApi._fnGetObjectDataFn( oSettings.sAjaxDataProp )( json ) : json;
+ 
+        for ( var i=0 ; i<aData.length ; i++ )
+        {
+            that.oApi._fnAddData( oSettings, aData[i] );
+        }
+ 
+        oSettings.aiDisplay = oSettings.aiDisplayMaster.slice();
+ 
+        that.fnDraw();
+ 
+        if ( bStandingRedraw === true )
+        {
+            oSettings._iDisplayStart = iStart;
+            that.oApi._fnCalculateEnd( oSettings );
+            that.fnDraw( false );
+        }
+ 
+        that.oApi._fnProcessingDisplay( oSettings, false );
+ 
+        /* Callback user function - for event handlers etc */
+        if ( typeof fnCallback == 'function' && fnCallback !== null )
+        {
+            fnCallback( oSettings );
+        }
+    }, oSettings );
+};

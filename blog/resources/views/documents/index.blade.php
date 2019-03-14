@@ -1,304 +1,191 @@
-@extends('documents.app')
+@extends('template')
 
 @section('title', 'Table of Document')
 
 @section('content')
 
-
-
-
-<!-- Modal -->
-{{-- <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-
-        <div class="modal-content">
-
-            <div class="modal-header">
-
-                <h5 class="modal-title" id="exampleModalLabel"> <i class="fas fa-plus-square"></i> &nbsp; เพิ่มบันทึกข้อความ</h5>
-
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-
-            </div>
-
-            <div class="modal-body">
-
-                <form class="form-horizontal" method="POST" action="{{ URL('/document') }}">
-                    <!-- if there are creation errors, they will show here -->
-                    @if($errors->all())
-                        <ul class="has-error">
-                    @foreach ($errors->all() as $message)
-                            <li>{{ $message }}</li>
-                    @endforeach
-                        </ul>
-                    @endif
-
-                    {{ csrf_field() }} --}}
-
-                    <!-- Material input -->
-
-{{--
-                    <form>
-                            <div class="form-row">
-                                <div class="form-group col-md-7">
-                                    <label for="FACULTY_NAME_TH">หน่วยงาน</label>
-
-                    <select class="form-control">
-                            <option selected>กรุณาเลือกหน่วยงาน...</option>
-
-                                    @foreach($Faculty as $key => $value)
-                                        <option>{{ $value->FACULTY_NAME_TH }}</option>
-                                    @endforeach
-                                    </select>
-
-                                </div>
-                                <div class="form-group col-md-3">
-                                    <label for="faculty_department">ฝ่ายงาน</label>
-                                    <input type="text" class="form-control" id="faculty_department" placeholder="ฝ่ายงานของหน่วยงาน">
-                                </div>
-                                <div class="form-group col-md-2">
-                                    <label for="faculty_tel">โทร.</label>
-                                    <input type="text" class="form-control" id="faculty_tel" placeholder="xxxx" maxlength="4">
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label for="DOCUMENT_ST_NUMBER">ที่</label>
-                                    <input type="text" class="form-control" id="DOCUMENT_ST_NUMBER" placeholder="เลขที่ ศธ.">
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="DOCUMENT_DATEIN">วันที่</label>
-
-                                    <input id="DOCUMENT_DATEIN" class="form-control">
-                                    <script>
-                                        $('#DOCUMENT_DATEIN').datepicker({
-                                            uiLibrary: 'bootstrap4',
-                                        });
-                                    </script>
-
-                                </div>
-                            </div>
-                            <div class="form-row">
-                              <div class="form-group col-md-6">
-                                <label for="DOCUMENT_NAME">เรื่อง</label>
-                                <input type="text" class="form-control" id="DOCUMENT_NAME">
-                              </div>
-                              <div class="form-group col-md-4">
-                                <label for="inputState">State</label>
-                                <select id="inputState" class="form-control">
-                                  <option selected>Choose...</option>
-                                  <option>...</option>
-                                </select>
-                              </div>
-                            </div>
-                            <div class="form-group">
-                              <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="gridCheck">
-                                <label class="form-check-label" for="gridCheck">
-                                  Check me out
-                                </label>
-                              </div>
-                            </div>
-                            <button type="submit" class="btn btn-primary" style="float:right">Sign in</button>
-                          </form> --}}
-
-
-                    {{-- <div class="form-group{{ $errors->has('DOCUMENT_NUMBER') ? ' has-error' : '' }}">
-                        <label for="title" class="col-md-4 control-label">เลข Barcode* : </label>
-                        <!-- Material input -->
-
-                        <div class="col-md-6">
-
-                            <input id="DOCUMENT_NUMBER" type="text" class="form-control" name="DOCUMENT_NUMBER" value="{{ old('DOCUMENT_NUMBER') }}" required autofocus>
-
-                            @if ($errors->has('title'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('DOCUMENT_NUMBER') }}</strong>
-                                </span>
-                            @endif
-
-                        </div>
-
-                    </div>
-
-                    <div class="form-group{{ $errors->has('DOCUMENT_PRIORITY') ? ' has-error' : '' }}">
-                        <label for="title" class="col-md-4 control-label">ประเภทเอกสาร* : </label>
-
-                        <div class="col-md-6">
-                            <input id="DOCUMENT_PRIORITY" type="text" class="form-control" name="DOCUMENT_PRIORITY" value="{{ old('DOCUMENT_PRIORITY') }}" required autofocus>
-
-                            @if ($errors->has('title'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('DOCUMENT_PRIORITY') }}</strong>
-                                </span>
-                            @endif
-
-                        </div>
-                    </div>
-
-                    <div class="form-group{{ $errors->has('DOCUMENT_ST_NUMBER') ? ' has-error' : '' }}">
-                        <label for="content" class="col-md-4 control-label">เลขที่ ศธ.  *</label>
-
-                        <div class="col-md-6">
-                            <input id="DOCUMENT_ST_NUMBER" type="text" class="form-control" name="DOCUMENT_ST_NUMBER" value="{{ old('DOCUMENT_PRIORITY') }}" required autofocus>
-                            @if ($errors->has('DOCUMENT_ST_NUMBER'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('DOCUMENT_ST_NUMBER') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-
-                    </div>
-
-                    <div class="form-group">
-                        <div class="col-md-6 col-md-offset-4">
-                            <button type="submit" class="btn btn-primary">
-                                สร้าง
-                            </button>
-                        </div>
-                    </div>
-
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-
+    <div><?php 
+//    dd(Session::get('gid'));
+    $gid= Session::get('gid');
+    $gid = $gid['gid'];
+        $url_get_data=URL('/documentslist');
+ 
+    ?></div>
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Control Code เสร็จสิ้นรายการ</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
+        <div class="modal-body">
+      
+
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <strong>Whoops!</strong> There were some problems with your input.<br><br>
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+ <form autocomplete="off" id="sent_control_code" action="#" class="form-horizontal" enctype="multipart/form-data" >
+
+                @csrf
+                     <div class="form-row">
+                            <div>
+                                <a id="message_save">
+            
+                  </a>
+<!--                                <span id="message_save"></span>-->
+                    
+                            </div>
+                     
+                        </div>
+              
+                
+                
+                
+                     <div class="form-row">
+      
+                            <div class="form-group col-md-6">
+                                <label>อัพโหลดไฟล์</label>
+                              <input type="file" name="image" class="form-control">
+                            </div>
+                      
+                        </div>
+                   
+                     <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>หมายเหตุ</label>
+                                <input type="text" class="form-control" name="DETAIL" id="DOCUMENT_NUMBER">
+                            </div>
+                      
+                        </div>
+              
+                
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>control code</label>
+                                <input type="number" class="form-control" name="DOCUMENT_NUMBER" id="DOCUMENT_NUMBER">
+                            </div>
+                      
+                        </div>
+                <input type="hidden" id="gid" name="gid" value="{{$gid}}">
+                
+                <input type="submit" hidden="true"></button>
+                      </form>
+                         
+        </div>
+      
+      </div>
     </div>
-</div> --}}
-
-{{-- <div>
-    @php
-        $userdata = Session::get('userdata');
-        echo $userdata['username'];
-    @endphp
-</div> --}}
-
-@if ($message = Session::get('success'))
-        <div class="alert alert-success">
-            <p>{{ $message }}</p>
-        </div>
-@endif
-
-<div class="table-responsive-lg table-hover container " style="margin-top: 70px">
-
-    <div class="row">
-        <div>
-            <h1 style="line-height: 0.7;">ตารางแสดงรายการบันทึกข้อความ &nbsp;</h1>
-        </div>
-
-        <div>
-            {{-- <a class="btn btn-success" href="{{ route('documents.create') }}"> Create New Product</a> --}}
-            @include('documents.create')
-
-        </div>
-    </div>
+  </div>
 
 
-        <table class="table" id="table">
-            <thead>
-                <tr >
-                    <th>#</th>
+     
+<div class="container-fluid">
+@include('search.search')
+    
+ <div class="card shadow mb-4">
+    <div class="card-body">
 
-                    <th>เลขที่ ศธ.</th>
-                    <th>หัวรื่อง</th>
-                    <th>วันที่รับเข้า</th>
-
-                    <th>Action</th>
-                </tr>
-            </thead>
-
-            <tbody>
-
-                @php
-                    $i=1;
-                @endphp
-
-                @foreach($documents as $key => $value)
-                    <tr>
-                        <td>{{ $i++ }}</td>
-                        <td>{{ $value->DOCUMENT_ST_NUMBER }}</td>
-                        <td style="width: 40%">{{ $value->DOCUMENT_NAME }}</td>
-                        <td>
-                                @php
-                                    echo App\Http\Controllers\DocumentController::DateThai($value->DATE_IN);
-                                @endphp
-                        </td>
-                        <td>
-
-
-                            <form class="form-horizontal" method="POST" action="{{ route('documents.destroy',$value->DOCUMENT_ID) }}">
-
-                                <a class="btn btn-xs btn-success" href="{{ route('documents.show',$value->DOCUMENT_ID) }}">Show</a>
-                                <a class="btn btn-xs btn-success" href="{{ URL::to('documentitem/' . $value->DOCUMENT_ID) }}">Show 2</a>
-
-
-                                <a class="btn btn-xs btn-info" href="{{ route('documents.edit',$value->DOCUMENT_ID) }}">Edit</a>
-
-                                @csrf
-                                @method('DELETE')
-
-                                <button type="submit" class="btn btn-xs btn-danger">Delete</button>
-                            </form>
-
-                        </td>
-                    </tr>
-
-                @endforeach
-            </tbody>
-        </table>
-
+                       <div class="table-responsive">
+                                <div class="card-header py-3"> <h6 class="m-0 font-weight-bold text-primary">เสร็จสิ้นรายการ</h6></div>
+     <div class="card-header py-3" id="toolbar">
+<button  id="btnsent" type="button" class="btn btn-primary" data-toggle="modal" data-target="#sentlistModal">เสร็จสิ้น(รายการที่เลือก)</button>
+<button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">เสร็จสิ้น(control code)</button>
 </div>
+    <table class="table table-bordered" id="table" width="100%" cellspacing="0">
 
+    
+        <thead>
+          <tr >
+            <th>ลำดับ</th>
+            <th>คณะ/หน่วยงาน</th>
+            <th>เลขที่ ศธ.</th>
+            <th>ลงวันที่</th>
+             <th>เรื่อง</th>
+              <th>เรียน</th>
+            <th>ประเภทเอกสาร</th>
+            <th>control code</th>
+            <th>รายละเอียด</th>
+          </tr>
+        </thead>
+
+      </table>
+                
+              </div>
+            </div>
+
+     
+ 
+    </div>
+  </div>
 <script>
-    $(document).ready(function() {
-    $('#table').DataTable( {
-        "bFilter" : false,
-        "bLengthChange": false,
-        "searching": true,
-
-    } );
-} );
-
-    $( "#form_action_del" ).submit(function( event ) {
-        if(confirm("ต้องการลบข้อมูลหรือไม่!")){
-            return;
-        }else{
-            event.preventDefault(); //คือ คำสั่งที่ใช้หยุดการเกิดเหตุการณ์ใดๆขึ้น
-        }
-    });
-</script>
+    var url_get_data = "{{$url_get_data}}";
+   fill_datatable();
 
 
-<style>
-    h3{
-        font-weight: bold;
-    }
-    .th-grid {
-        width: auto !important;
-    }
-    .long {
-        width: 40% !important;
-    }
-    @media only screen and (max-width: 600px) {
-        .long {
-            width: auto !important;
-        }
-        .th-grid:nth-child(even) {
-            display: none;
-        }
-        .td-grid:nth-child(even) {
-            display: none;
-        }
-        .btn-warning {
-            display: none;
-        }
-    }
-</style>
+
+      function fill_datatable(data = '')
+  {
+  var table = $('#table').DataTable({searching: false,
+       "columnDefs": [
+    {"targets": 0, "width": "2.5%",   "className": "text-center", },
+    {"targets": 1, "width": "10%",   "className": "text-center", },
+    {"targets": 2, "width": "10%",   "className": "text-center", },
+    {"targets": 3, "width": "10%",   "className": "text-center", },
+    {"targets": 4, "width": "40%",   "className": "text-center", },
+    {"targets": 5, "width": "15%",   "className": "text-center", },
+    {"targets": 6, "width": "10%",   "className": "text-center", },
+    {"targets": 7, "width": "10%",   "className": "text-center", },
+    {"targets": 8, "width": "5%",   "className": "text-center", },
+  ],
+       "ordering": false,
+       info: true,
+      "dom": '<"top">rt<"bottom"lip><"clear">',
+    "processing": true,
+    "serverSide":true,
+                "ajax":{
+                    url: url_get_data,
+                    type:"get",
+                     data:{
+                       data_search:data
+                    }
+                }
+   });
+  }
+
+
+        $("#form_search").submit(function (e) {
+//  var data = $('#form_search').serialize();
+
+var data = 'FACULTY_ID=' + $('#form_search select[id=FACULTY_ID]').val() + '&' + 'DOCUMENT_TO=' + $('#form_search select[id=DOCUMENT_TO]').val() + '&' + 'DOCUMENT_NOTATION=' + $('#form_search select[id=DOCUMENT_NOTATION]').val() + '&'
+        + 'DOCUMENT_NAME=' + $('#form_search input[id=DOCUMENT_NAME]').val() + '&' + 'DOCUMENT_ST_NUMBER=' + $('#form_search input[id=DOCUMENT_ST_NUMBER]').val() + '&' + 'DOCUMENT_NUMBER=' + $('#form_search input[id=DOCUMENT_NUMBER]').val()
+//alert(data);
+   if(data != '')
+   {
+    $('#table').DataTable().destroy();
+    fill_datatable(data);
+   }
+   else
+   {
+    alert('Select Both filter option');
+    $('#table').DataTable().destroy();
+    fill_datatable();
+   }     
+        });
+
+
+  </script>
+
+
 
 
 @endsection

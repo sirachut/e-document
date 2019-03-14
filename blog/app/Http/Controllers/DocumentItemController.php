@@ -19,9 +19,13 @@ class DocumentItemController extends Controller
             
             $Document = Vw_document::where('DOCUMENT_ID', $id)
                     ->get();
+             $navi_menu = 'รายละเอียดเอกสาร';
+             
             return View('document_item.index')
             ->with('Document_item', $Document_item)
-            ->with('Document', $Document);
+            ->with('Document', $Document)
+             ->with('navi_menu', $navi_menu)
+            ->with('id', $id);
     }
 
        public function add(Request $request)

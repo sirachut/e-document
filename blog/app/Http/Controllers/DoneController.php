@@ -1,60 +1,56 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
+use App\Models\document;
 use App\Models\Vw_document_item;
 use App\Models\Document_Item;
+use App\Models\Document_attachment;
 
 class DoneController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-
     public function index($get_gid= null)
     {
-//            $Document = Document::all()->sortByDesc('DATE_IN');
-        if($get_gid){
+        
+             
+       if($get_gid){
              $gid = $get_gid;
         }else{
             $gid = session()->get('gid');
         }
-       
-//        dd($gid);
-            $Document_item = Vw_document_item::select('DOCUMENT_ID','DOCUMENT_ITEM_ID','FACULTY_ID','DOCUMENT_ST_NUMBER','DOCUMENT_NAME','DOCUMENT_NOTATION','DOCUMENT_NUMBER','DOCUMENT_TO')
-                    ->distinct()
-                    ->where('DEPARTMENT_ID', $gid)
-                    ->where('CKT', 'R')
-                     ->orderBy('DATE_IN', 'desc')
-                    ->orderBy('DOCUMENT_ID', 'desc')
-                    ->get();
-//            dd($Document_item);
+        $navi_menu = 'ดำเนินการเสร็จสิ้น';
             return View('done.index')
-            ->with('Document', $Document_item)
-            ->with('get_gid', $gid);
-        
-//         $this->layout->content = View('list')->with('Document', $Document);
+            ->with('get_gid', $gid)
+            ->with('navi_menu', $navi_menu);
+
     }
 
+    
+    
        public function done(Request $request)
     {
-     
-	
+          $userdata = session()->get('userdata');
            $document_item_id = explode(",",$request->input('hidden_document_item_id'));
            date_default_timezone_set("Asia/Bangkok");
-//           dd($document_item_id);
            foreach ($document_item_id as $key => $val){
                //update date out
                 $item_id = explode("_",$val);
-//                dd($item_id);
-           $item = Document_Item::findOrFail($item_id[0]);
+                $item = Document_Item::findOrFail($item_id[0]);
 		$item->DATE_OUT = date("Y-m-d H:i:s") ;
                 $item->STATUS_ID = 6;
                 $item->DETAIL = $request->input('DETAIL');
+                $item->SENT_USER =  $userdata['username'];
+                $item->LAST_USER =  $userdata['username'];
+                $item->LAST_DATE = date("Y-m-d H:i:s") ;
+                
 		$item->save();
+                 
+                $document = Document::findOrFail($item_id[1]);
+		$document->DOCUMENT_STATUS = 'S';
+                
+                $document->LAST_USER = $userdata['username'];
+                $document->LAST_DATE = date("Y-m-d H:i:s") ;
+		$document->save();
             }
 
     }
@@ -66,7 +62,6 @@ class DoneController extends Controller
 	
            $document_item_id = explode(",",$request->input('hidden_document_item_id'));
            date_default_timezone_set("Asia/Bangkok");
-//           dd($document_item_id);
            foreach ($document_item_id as $key => $val){
                //update date out
                 $item_id = explode("_",$val);
@@ -90,6 +85,64 @@ class DoneController extends Controller
            }
 		// redirect
 //		return redirect('sent')->with('message', 'เพิ่มเอกสารสำเร็จ!');
+    }
+    
+               public function done_control_code(Request $request)
+    {
+           $userdata = session()->get('userdata');
+           $gid= session()->get('gid');
+           $document_item_id = Vw_document_item::select('DOCUMENT_ITEM_ID','DOCUMENT_ID')
+                   ->where('DOCUMENT_NUMBER', $request->input('DOCUMENT_NUMBER'))
+                   ->where('DEPARTMENT_ID', $gid)
+                    ->where('CKT', 'R')
+                   ->get();
+           date_default_timezone_set("Asia/Bangkok");
+            $result = true;
+            if(count($document_item_id)){
+                foreach ($document_item_id as $key => $val){
+                    //update date out
+                        $item_id = $val->DOCUMENT_ITEM_ID;
+                        $item = Document_Item::findOrFail($item_id);
+                       $item->DATE_OUT = date("Y-m-d H:i:s") ;
+                       $item->STATUS_ID = 6;
+                       $item->DETAIL = $request->input('DETAIL');
+                       $item->SENT_USER =  $userdata['username'];
+                       $item->LAST_USER =  $userdata['username'];
+                       $item->LAST_DATE = date("Y-m-d H:i:s") ;
+                       
+                     $item->save();
+                     
+                $document = Document::findOrFail($val->DOCUMENT_ID);
+		$document->DOCUMENT_STATUS = 'S';
+                $document->LAST_USER = $userdata['username'];
+                $document->LAST_DATE = date("Y-m-d H:i:s") ;
+		$document->save();
+                
+//                print_r($request->file('image'));
+//                $path = $request->file('image')->store('uploads');
+                
+//                $md5Name =  $request->input('DOCUMENT_NUMBER') . '_' . md5_file($request->file('image')->getRealPath());
+                $Name = date("YmdHis"). '_' .$request->input('DOCUMENT_NUMBER') . '_' . md5_file($request->file('image')->getRealPath()); 
+                $guessExtension = $request->file('image')->guessExtension();
+                $path = $request->file('image')->storeAs('uploads', $Name.'.'.$guessExtension);
+                
+                 $attachment = new Document_attachment;
+                $attachment->DOCUMENT_ID = $val->DOCUMENT_ID;
+                $attachment->ATTACHMENT_FILE = $Name.'.'.$guessExtension;
+                $attachment->LAST_DATE = date("Y-m-d H:i:s") ;
+                $attachment->CREATE_USER =  $userdata['username'];
+                $attachment->LAST_USER =  $userdata['username'];
+         
+		$attachment->save();
+             
+                 
+                $result = false;
+                }
+            }
+
+               
+            $response = array("error" => $result);
+            echo json_encode($response);
     }
     
 }

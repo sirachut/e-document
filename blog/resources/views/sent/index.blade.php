@@ -8,8 +8,9 @@
 //    dd(Session::get('gid'));
     $gid= Session::get('gid');
     $gid = $gid['gid'];
-//    echo ($get_gid);
+//    dd ($gid);
     
+//    ธุรการ จัดการแทน ผอ. กบศ หรือ ผอ. กดเอง
     if($gid == 10 || $get_gid == 10 ){
         $url_sent_department= URL('/director');     
         $url_sent_department_control_code= URL('/directorcontrolcode'); 
@@ -18,6 +19,7 @@
         }else{
             $gid=$gid;
         }
+//        dd ($gid);
         $url_get_data= URL('/sentlist/'.$gid);
     }else{
         $url_sent_department= URL('/sent_item'); 
@@ -49,7 +51,7 @@
                     </ul>
                 </div>
             @endif
- <form id="sent_control_code" action="{{ $url_sent_department_control_code }}" class="form-horizontal" >
+ <form autocomplete="off" id="sent_control_code" action="{{ $url_sent_department_control_code }}" class="form-horizontal" >
 
                 @csrf
                      <div class="form-row">
@@ -62,7 +64,7 @@
                             </div>
                      
                         </div>
-               
+                 <?php if($gid != 10 && $get_gid != 10){ ?>
                         <div class="form-row">
                             <div class="form-group col-md-7">
                                     <label>หน่วยงาน กบศ.</label>
@@ -77,13 +79,16 @@
                             </div>
                       
                         </div>
+                 <?php } ?>
+                
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label>control code</label>
-                                <input type="text" class="form-control" name="DOCUMENT_NUMBER" id="DOCUMENT_NUMBER">
+                                <input autocomplete="off" type="number" class="form-control" name="DOCUMENT_NUMBER" id="DOCUMENT_NUMBER">
                             </div>
                       
                         </div>
+                <input type="hidden" id="gid" name="gid" value="{{$gid}}">
                 
                 <input type="submit" hidden="true"></button>
                       </form>
@@ -98,7 +103,7 @@
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Control Code ส่งเอกสารหน่วยงาน กบศ.</h5>
+          <h5 class="modal-title" id="exampleModalLabel">ส่งเอกสารหน่วยงาน กบศ.</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -116,7 +121,7 @@
                     </ul>
                 </div>
             @endif
-    <form id="sent_department" action="{{ $url_sent_department }}" class="form-horizontal" >
+    <form autocomplete="off" id="sent_department" action="{{ $url_sent_department }}" class="form-horizontal" >
         
                
 					<!-- if there are creation errors, they will show here -->
@@ -157,61 +162,14 @@
 
      
 <div class="container-fluid">
-    <div class="card shadow mb-4">
-                <!-- Card Header - Accordion -->
-                <a href="#collapseCardExample" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
-                  <h6 class="m-0 font-weight-bold text-primary">ค้นหาข้อมูล</h6>
-                </a>
-                <!-- Card Content - Collapse -->
-                <div class="collapse show" id="collapseCardExample" style="">
-                  <div class="card-body">
-                          <form id="form_search" onsubmit="return false">
-            <table width="100%" border="0"  class="table_top">
-                <tr>
-                    <td width="15%" class="caption" > <div class="float-right">คณะ : </div></td>
-                    <td width="35%"><div class="col-md-6 float-left"> {{form_select_faculty()}}  </div> </td>
-
-                    <td width="15%" class="caption"><div class="float-right">เลขที่ ศธ. :</div> </td>
-                    <td width="35%" ><div class="col-md-6 float-left"> <input id="DOCUMENT_ST_NUMBER" type="text" class="form-control" name="DOCUMENT_ST_NUMBER">  </div>  </td>
-                </tr>
-
-                      <tr>
-                    <td width="15%" class="caption" > <div class="float-right">{{ Lang::get('master.DOCUMENT_NOTATION.LABEL') }} :</div></td>
-                    <td width="35%"><div class="col-md-6 float-left"> {{form_select_document_notation()}}  </div> </td>
-
-                    <td width="15%" class="caption"><div class="float-right">เรื่อง :</div> </td>
-                    <td width="35%" ><div class="col-md-6 float-left"> <input id="DOCUMENT_NAME" type="text" class="form-control" name="DOCUMENT_NAME">  </div>  </td>
-                </tr>
-                
-                          <tr>
-                    <td width="15%" class="caption" > <div class="float-right">{{ Lang::get('master.DOCUMENT_TO.LABEL') }} : </div></td>
-                    <td width="35%"><div class="col-md-6 float-left"> {{form_select_document_to()}}  </div> </td>
-
-                    <td width="15%" class="caption"><div class="float-right">control code :</div> </td>
-                    <td width="35%" ><div class="col-md-6 float-left"> <input id="DOCUMENT_NUMBER" type="text" class="form-control" name="DOCUMENT_NUMBER">  </div>  </td>
-                </tr>
-
-
-                <tr>
-                    <td></td>
-                    <td class="" colspan="3" height="40">
-                        <button type="submit" class="btn btn-primary btn-sm" id="btn_search"><span class="glyphicon glyphicon-search"></span> <strong>ค้นหา</strong></button>
-                        <button type="reset" class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-remove"></span> <strong>ยกเลิก</strong></button>
-                    </td>
-                </tr>
-            </table>
-        </form>
-                  </div>
-                </div>
-              </div>
-    
+    @include('search.search')
  <div class="card shadow mb-4">
     <div class="card-body">
 
                        <div class="table-responsive">
                                 <div class="card-header py-3"> <h6 class="m-0 font-weight-bold text-primary">รายการนำส่ง</h6></div>
      <div class="card-header py-3" id="toolbar">
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#sentlistModal">ส่งต่อ(รายการที่เลือก)</button>
+<button  id="btnsent" type="button" class="btn btn-primary" data-toggle="modal" data-target="#sentlistModal">ส่งต่อ(รายการที่เลือก)</button>
 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">ส่งต่อ(control code)</button>
 </div>
     <table class="table table-bordered" id="table" width="100%" cellspacing="0">
@@ -219,7 +177,7 @@
     
         <thead>
           <tr >
-            <th>เลือก</th>
+            <th><input type="checkbox" id="select_all" class="select_all"></th>
             <th>ลำดับ</th>
             <th>คณะ/หน่วยงาน</th>
             <th>เลขที่ ศธ.</th>
@@ -242,9 +200,14 @@
     </div>
   </div>
 <script>
-    
-  $(document).ready(function() {
-   var table = $('#table').DataTable({searching: false,
+    var url_get_data = "{{$url_get_data}}";
+   fill_datatable();
+
+
+
+      function fill_datatable(data = '')
+  {
+  var table = $('#table').DataTable({searching: false,
        "columnDefs": [
     {"targets": 0, "width": "2.5%",   "className": "text-center", },
     {"targets": 1, "width": "2.5%",   "className": "text-center", },
@@ -256,26 +219,42 @@
     {"targets": 7, "width": "10%",   "className": "text-center", },
     {"targets": 8, "width": "5%",   "className": "text-center", },
   ],
-
-
        "ordering": false,
        info: true,
       "dom": '<"top">rt<"bottom"lip><"clear">',
     "processing": true,
     "serverSide":true,
                 "ajax":{
-                    url:"{{$url_get_data}}",
-                    type:"get"
+                    url: url_get_data,
+                    type:"get",
+                     data:{
+                       data_search:data
+                    }
                 }
    });
-
-    
-} );
-
-    </script>
+  }
 
 
-  <script type="text/javascript">
+        $("#form_search").submit(function (e) {
+//  var data = $('#form_search').serialize();
+
+var data = 'FACULTY_ID=' + $('#form_search select[id=FACULTY_ID]').val() + '&' + 'DOCUMENT_TO=' + $('#form_search select[id=DOCUMENT_TO]').val() + '&' + 'DOCUMENT_NOTATION=' + $('#form_search select[id=DOCUMENT_NOTATION]').val() + '&'
+        + 'DOCUMENT_NAME=' + $('#form_search input[id=DOCUMENT_NAME]').val() + '&' + 'DOCUMENT_ST_NUMBER=' + $('#form_search input[id=DOCUMENT_ST_NUMBER]').val() + '&' + 'DOCUMENT_NUMBER=' + $('#form_search input[id=DOCUMENT_NUMBER]').val()
+//alert(data);
+   if(data != '')
+   {
+    $('#table').DataTable().destroy();
+    fill_datatable(data);
+   }
+   else
+   {
+    alert('Select Both filter option');
+    $('#table').DataTable().destroy();
+    fill_datatable();
+   }     
+        });
+
+
 
 
 $("#sent_department").submit(function(e) {
@@ -291,17 +270,31 @@ $("#sent_department").submit(function(e) {
 });
 //alert(document_id);
         if(document_id != ''){
+            
             $('#hidden_document_item_id').val(document_id);
-                $.ajax({
+           var department_id = $("#sent_department select[id=department_id]").val();
+       
+            if(department_id != 0){
+                
+                      $.ajax({
            type: "POST",
            url: url,
            data: form.serialize(), // serializes the form's elements.
            success: function(data)
            {
 //               alert(data.error); // show response from the php script.
-window.location.replace("{{ URL('/sent') }}");
-           }
-         });
+//            window.location.replace("{{ URL('/sent') }}");
+             $('#sentlistModal').modal('hide');
+              $('#table').DataTable().destroy();
+                fill_datatable();
+             e.preventDefault();
+                       }
+                     });
+            }else{
+                alert ('กรุณาเลือก หน่วยงานที่จะส่งต่อ');
+            }
+            
+       
            }else{
             alert ('กรุณาเลือก รายการที่ต้องการส่ง');
             e.preventDefault();  // avoid to execute the actual submit of the form.
@@ -309,16 +302,54 @@ window.location.replace("{{ URL('/sent') }}");
              e.preventDefault();  // avoid to execute the actual submit of the form.
 });
 
+$('#exampleModal').on('shown.bs.modal', function () {
+$("#sent_control_code input[id=DOCUMENT_NUMBER]").focus();
+});
+
+
 $("#sent_control_code select[id=department_id]").change(function(){
+
        var department_id = $("#sent_control_code select[id=department_id]").val();
        
        if(department_id == 0){
-           $("#DOCUMENT_NUMBER").blur();
+           $("#sent_control_code input[id=DOCUMENT_NUMBER]").blur();
        }else{
-        $("#DOCUMENT_NUMBER").focus();
+        $("#sent_control_code input[id=DOCUMENT_NUMBER]").focus();
     }
 
 });
+
+$("#select_all").change(function(){
+if ($('#select_all').is(':checked')) {
+    $("#btnsent").prop('disabled', false);
+    $(".select_document").prop('checked', true);
+    ck_select();
+    
+}else{
+     $("#btnsent").prop('disabled', true);
+    $(".select_document").prop('checked', false);
+}
+
+});
+
+$("#btnsent").prop('disabled', true);
+function ck_select(){
+     var document_id=[];
+     var i=0;
+$('.select_document').each(function( index ) {
+      if($(this).is(':checked'))  {
+          document_id[i]=$( this ).val();
+          i++;
+      }
+});
+if (document_id != '') {
+    $("#btnsent").prop('disabled', false);
+    
+}else{
+   $("#btnsent").prop('disabled', true);
+}
+
+}
 
 $("#sent_control_code").submit(function(e) {
     var form = $(this);
@@ -336,9 +367,13 @@ if(department_id == 0){
            data: form.serialize(), // serializes the form's elements.
            success: function(response, status, xhr)
            { 
+               var html= "<span class='icon text-white-50'><i class='fas fa-exclamation-triangle'></i></span><span class='text'>.....</span>";
+                $("#message_save").html(html) ;
+                     $("#message_save").attr('class', "btn btn-info btn-icon-split");
+              
                   if (response.error == true) {
 //                      alert("เอกสารนี้นำส่งแล้ว");
-                var html= "<span class='icon text-white-50'><i class='fas fa-exclamation-triangle'></i></span><span class='text'>เอกสารนี้นำส่งแล้ว</span>";
+                var html= "<span class='icon text-white-50'><i class='fas fa-exclamation-triangle'></i></span><span class='text'>ผิดพลาด เอกสารนี้นำส่งแล้ว</span>";
                 $("#message_save").html(html) ;
                      $("#message_save").attr('class', "btn btn-warning btn-icon-split");
 
@@ -347,12 +382,23 @@ if(department_id == 0){
                 $("#message_save").html(html) ;
                      $("#message_save").attr('class', "btn btn-success btn-icon-split");
                 }
+             
            }
          });
            
 }
- e.preventDefault();  // avoid to execute the actual submit of the form.       
+$("#sent_control_code input[id=DOCUMENT_NUMBER]").val("");
+  $('#table').DataTable().destroy();
+ fill_datatable();
+ e.preventDefault();  // avoid to execute the actual submit of the form. 
 
+
+});
+
+$('#exampleModal').on('hidden.bs.modal', function () {
+  // do something…
+$('#table').DataTable().destroy();
+  fill_datatable();
 });
 
   </script>

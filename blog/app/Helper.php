@@ -12,7 +12,8 @@ function formatDateThai($strDate)
     $strSeconds= date("s",strtotime($strDate));
     $strMonthCut = Array("","ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค.");
     $strMonthThai=$strMonthCut[$strMonth];
-    return "$strDay $strMonthThai $strYear $strHour:$strMinute";
+//    return "$strDay $strMonthThai $strYear $strHour:$strMinute";
+    return "$strDay $strMonthThai $strYear";
 }
 
 function form_select_department()
@@ -37,7 +38,7 @@ function form_select_faculty()
         $Faculty = Faculty::where('RECORD_STATUS', 'N')
                     ->get();
    $html="";
-   $html .="<select name='faculty_id' class='form-control'>";
+   $html .="<select id='FACULTY_ID' name='FACULTY_ID' class='form-control'>";
     $html .="<option value='".'0'."'>".'กรุณาเลือกข้อมูล'."</option>";
     foreach ($Faculty as $key => $val){
         $html .="<option value='".$val['FACULTY_ID']."'>".$val['FACULTY_NAME_TH']."</option>";
@@ -45,26 +46,11 @@ function form_select_faculty()
   $html .="</select>";
     echo "$html";
 }
-//function form_select_mas_status()
-//{
-//  $array = [1,2,3,4,5,6,7];
-//  
-//    $Status = Mas_Status::where('STATUS_ID',$array)
-//                ->get();
-//   $html="";
-//   $html .="";
-//    foreach ($Status as $key => $val){
-//        $html .="<option value='".$val['STATUS_ID']."'>".$val['STATUS_NAME']."</option>";
-//    }
-//  $html .="</select>";
-//    echo "$html";
-//}
-
 function form_select_document_notation(){
 //    print_r(Lang::get('master.DOCUMENT_NOTATION')) ;
     $document_notation = Lang::get('master.DOCUMENT_NOTATION');
     $html="";
-    $html .="<select name='faculty_id' class='form-control'>";
+    $html .="<select id='DOCUMENT_NOTATION' name='DOCUMENT_NOTATION' class='form-control'>";
     $html .="<option value='".'0'."'>".'กรุณาเลือกข้อมูล'."</option>";
     foreach ($document_notation as $key => $val){
         if( intval($key)){
@@ -78,11 +64,11 @@ function form_select_document_notation(){
 
 function form_select_document_to(){
 //    print_r(Lang::get('master.DOCUMENT_NOTATION')) ;
-    $document_notation = Lang::get('master.DOCUMENT_TO');
+    $document_to = Lang::get('master.DOCUMENT_TO');
     $html="";
-    $html .="<select name='faculty_id' class='form-control'>";
+    $html .="<select id='DOCUMENT_TO' name='DOCUMENT_TO' class='form-control'>";
     $html .="<option value='".'0'."'>".'กรุณาเลือกข้อมูล'."</option>";
-    foreach ($document_notation as $key => $val){
+    foreach ($document_to as $key => $val){
         if( intval($key)){
         $html .="<option value='".$key."'>".$val."</option>";
         }
@@ -90,4 +76,38 @@ function form_select_document_to(){
   $html .="</select>";
     echo "$html";
     
+}
+function get_document_notation($id=null){
+    $document_notation = Lang::get('master.DOCUMENT_NOTATION');
+    $text=$document_notation[$id];
+    return "$text";
+    
+}
+
+function get_document_to($id=null){
+    $DOCUMENT_TO = Lang::get('master.DOCUMENT_TO');
+    $text=$DOCUMENT_TO[$id];
+    return "$text";
+    
+}
+
+function get_faculty($id=null){
+        $Faculty =Faculty::findOrFail($id);
+//        dd($Faculty);
+   return "$Faculty->FACULTY_NAME_TH";
+    
+}
+
+function get_document_status($id=null){
+    $DOCUMENT_STATUS = Lang::get('master.DOCUMENT_STATUS');
+    $text=$DOCUMENT_STATUS[$id];
+    return "$text";
+    
+}
+
+function get_department($id=null)
+{
+    
+        $Department = Sys_Department::findOrFail($id);
+ return "$Department->DEPARTMENT_NAME";
 }
